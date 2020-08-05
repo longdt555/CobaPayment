@@ -1,6 +1,7 @@
 ﻿using Microsoft.IdentityModel.Tokens;
 using System;
 using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
 using System.Text;
 
 namespace CobastockPayment.Common
@@ -28,10 +29,10 @@ namespace CobastockPayment.Common
 
             //Zoom Required Payload
             var payload = new JwtPayload
-        {
-            { "iss", API_KEY},
-            { "exp", ts },
-        };
+            {
+                { "iss", API_KEY},
+                { "exp", ts },
+            };
 
             var secToken = new JwtSecurityToken(header, payload);
             var handler = new JwtSecurityTokenHandler();
@@ -42,36 +43,34 @@ namespace CobastockPayment.Common
             return tokenString;
         }
 
-        public static string GenerateJwtToken()
+        public static string GenerateJwtToken(int expireMinutes = 1)
         {
-            // Token will be good for 20 minutes
-            DateTime Expiry = DateTime.UtcNow.AddMinutes(20);
+            var symmetricKey = Encoding.ASCII.GetBytes(API_SECRET);
+            var tokenHandler = new JwtSecurityTokenHandler();
+            var generator = new Random();
+            Byte[] b = new Byte[32];
+            generator.NextBytes(b);
+            var tokenId = Convert.ToBase64String(b);
 
-            int ts = (int)(Expiry - new DateTime(1970, 1, 1)).TotalSeconds;
-
-            // Create Security key using private key above:
-            var securityKey = new Microsoft.IdentityModel.Tokens.SymmetricSecurityKey(Encoding.UTF8.GetBytes(API_SECRET));
-
-            // I did changes in below line because DLL needed HmacSha256Signature instead of HmacSha256
-            var credentials = new Microsoft.IdentityModel.Tokens.SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256Signature);
-
-            //Finally create a Token
-            var header = new JwtHeader(credentials);
-
-            //Zoom Required Payload
-            var payload = new JwtPayload
+            var now = DateTime.UtcNow;
+            var tokenDescriptor = new SecurityTokenDescriptor
             {
-            { "iss", API_KEY},
-            { "exp", API_SECRET },
+                Subject = new ClaimsIdentity(new[]{
+                    new Claim("iss", API_KEY),
+                    new Claim("jti", tokenId)
+                }),
+
+                Expires = now.AddMinutes(Convert.ToInt32(expireMinutes)),
+
+                SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(symmetricKey), SecurityAlgorithms.HmacSha256Signature)
             };
 
-            var secToken = new JwtSecurityToken(header, payload);
-            var handler = new JwtSecurityTokenHandler();
+            SecurityToken securityToken = tokenHandler.CreateToken(tokenDescriptor);
+            
+            var token = tokenHandler.WriteToken(securityToken);
 
-            // Token to String so you can use it in your client
-            var tokenString = handler.WriteToken(secToken);
 
-            return tokenString;
+            return token;
         }
 
         public static string GetMD5Hash(String input)
@@ -88,6 +87,81 @@ namespace CobastockPayment.Common
 
             String md5String = s.ToString();
             return md5String;
+        }
+
+        private static String GetErrorMessage(string _ErrorCode)
+        {
+            String _Message = "";
+            switch (_ErrorCode)
+            {
+                case "00":
+                    _Message = "Giao dịch thành công";
+                    break;
+                case "01":
+                    _Message = "Lỗi, địa chỉ IP truy cập API của NgânLượng.vn bị từ chối";
+                    break;
+                case "02":
+                    _Message = "Lỗi, tham số gửi từ merchant tới NgânLượng.vn chưa chính xác.";
+                    break;
+                case "03":
+                    _Message = "Lỗi, mã merchant không tồn tại hoặc merchant đang bị khóa kết nối tới NgânLượng.vn";
+                    break;
+                case "04":
+                    _Message = "Lỗi, mã checksum không chính xác";
+                    break;
+                case "05":
+                    _Message = "Tài khoản nhận tiền nạp của merchant không tồn tại";
+                    break;
+                case "06":
+                    _Message = "Tài khoản nhận tiền nạp của  merchant đang bị khóa hoặc bị phong tỏa, không thể thực hiện được giao dịch nạp tiền";
+                    break;
+                case "07":
+                    _Message = "Thẻ đã được sử dụng";
+                    break;
+                case "08":
+                    _Message = "Thẻ bị khóa";
+                    break;
+                case "09":
+                    _Message = "Thẻ hết hạn sử dụng";
+                    break;
+                case "10":
+                    _Message = "Thẻ chưa được kích hoạt hoặc không tồn tại";
+                    break;
+                case "11":
+                    _Message = "Mã thẻ sai định dạng";
+                    break;
+                case "12":
+                    _Message = "Sai số serial của thẻ";
+                    break;
+                case "13":
+                    _Message = "Mã thẻ và số serial không khớp";
+                    break;
+                case "14":
+                    _Message = "Thẻ không tồn tại";
+                    break;
+                case "15":
+                    _Message = "Thẻ không sử dụng được";
+                    break;
+                case "16":
+                    _Message = "Số lần tưử của thẻ vượt quá giới hạn cho phép";
+                    break;
+                case "17":
+                    _Message = "Hệ thống Telco bị lỗi hoặc quá tải, thẻ chưa bị trừ";
+                    break;
+                case "18":
+                    _Message = "Hệ thống Telco  bị lỗi hoặc quá tải, thẻ có thể bị trừ, cần phối hợp với nhà mạng để đối soát";
+                    break;
+                case "19":
+                    _Message = "Kết nối NgânLượng với Telco bị lỗi, thẻ chưa bị trừ.";
+                    break;
+                case "20":
+                    _Message = "Kết nối tới Telco thành công, thẻ bị trừ nhưng chưa cộng tiền trên NgânLượng.vn";
+                    break;
+                case "99":
+                    _Message = "Lỗi tuy nhiên lỗi chưa được định nghĩa hoặc chưa xác định được nguyên nhân";
+                    break;
+            }
+            return _Message;
         }
     }
 }

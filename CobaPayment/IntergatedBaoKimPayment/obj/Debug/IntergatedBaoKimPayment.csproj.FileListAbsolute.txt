@@ -85,3 +85,5 @@ D:\Project\CobaP\CobaPayment\CobaPayment\IntergatedBaoKimPayment\bin\Microsoft.C
 D:\Project\CobaP\CobaPayment\CobaPayment\IntergatedBaoKimPayment\obj\Debug\IntergatedBaoKimPayment.csproj.CopyComplete
 D:\Project\CobaP\CobaPayment\CobaPayment\IntergatedBaoKimPayment\obj\Debug\IntergatedBaoKimPayment.dll
 D:\Project\CobaP\CobaPayment\CobaPayment\IntergatedBaoKimPayment\obj\Debug\IntergatedBaoKimPayment.pdb
+D:\Project\CobaP\CobaPayment\CobaPayment\IntergatedBaoKimPayment\bin\System.Net.Http.Formatting.dll
+D:\Project\CobaP\CobaPayment\CobaPayment\IntergatedBaoKimPayment\bin\System.Net.Http.Formatting.xml

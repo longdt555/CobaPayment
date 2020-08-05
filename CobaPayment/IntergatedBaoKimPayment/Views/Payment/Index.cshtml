@@ -7,15 +7,32 @@
     <link rel="stylesheet" href="../Content/Site.css" type="text/css" />
 </head>
 <body>
-
+    <form id="order-form">
+        <input type="text" name="model.mrc_order_id" value="1" />
+        <input type="text" name="model.total_amount" value="1" />
+        <input type="text" name="model.description" value="1" />
+        <input type="text" name="model.merchant_id" value="1" />
+        <input type="text" name="model.url_detail" value="1" />
+        <input type="text" name="model.lang" value="1" />
+        <input type="text" name="model.bpm_id" value="1" />
+        <input type="text" name="model.accept_bank" value="1" />
+        <input type="text" name="model.accept_cc" value="1" />
+        <input type="text" name="model.accept_qrpay" value="1" />
+        <input type="text" name="model.accept_e_wallet" value="1" />
+        <input type="text" name="model.webhooks" value="1" />
+        <input type="text" name="model.customer_email" value="1" />
+        <input type="text" name="model.customer_phone" value="1" />
+        <input type="text" name="model.customer_name" value="1" />
+        <input type="text" name="model.customer_address" value="1" />
+    </form>
     <h3>Chọn phương thức thanh toán</h3>
     <div ID="txtserverkt" runat="server" name="txtserverkt"> </div>
     <form name="NLpayBank" runat="server">
         <ul class="list-content">
             <li class="active">
                 <label>
-                    <input type="radio" ID="NL" runat="server" groupname="option_payment" name="option_payment" />
-                    Thanh toán bằng Ví điện tử NgânLượng
+                    <input type="radio" ID="NL" runat="server" groupname="" name="" />
+                    Thanh toán bằng Ví điện tử Ngân Lượng
                 </label>
                 <div class="boxContent">
                     <p>
@@ -26,7 +43,7 @@
                 </div>
             </li>
             <li>
-                <label><input type="radio" id="ATM_ONLINE" runat="server" groupname="option_payment" name="option_payment"/>Thanh toán online bằng thẻ ngân hàng nội địa</label>
+                <label><input type="radio" id="ATM_ONLINE" runat="server" groupname="" name="" />Thanh toán online bằng thẻ ngân hàng nội địa</label>
                 <div class="boxContent hide">
                     <p>
                         <i>
@@ -216,7 +233,7 @@
                 </div>
             </li>
             <li>
-                <label><input type="radio" ID="VISA" runat="server" groupname="option_payment" name="option_payment"/>Thanh toán bằng thẻ Visa hoặc MasterCard</label>
+                <label><input type="radio" ID="VISA" runat="server" groupname="" name="" />Thanh toán bằng thẻ Visa hoặc MasterCard</label>
                 <div class="boxContent"></div>
             </li>
         </ul>
@@ -246,8 +263,7 @@
             <tr>
                 <td></td>
                 <td>
-
-                    <button ID="nlpayment" runat="server" onclick="" Text="thanh toán" />
+                    <button ID="nlpayment" runat="server" onclick="">Thanh toán</button>
                 </td>
             </tr>
         </table>
@@ -255,7 +271,7 @@
     </form>
     <script src="https://www.nganluong.vn/webskins/javascripts/jquery_min.js" type="text/javascript"></script>
     <script language="javascript">
-        $('input[name="option_payment"]').bind('click', function () {
+        $('input[name=""]').bind('click', function () {
             $('.list-content li').removeClass('active');
             $(this).parent().parent('li').addClass('active');
         });
@@ -265,6 +281,15 @@
             } else {
                 $('.boxContent').addClass('hide');
             }
+        });
+        $('#nlpayment').click(function () {
+            $.ajax({
+                url: '/Payment/Send',
+                type: 'post',
+                dataType: 'json',
+                data: $('#order-form').serialize(),
+                success: function (response) { }
+            });
         });
     </script>
 </body>
