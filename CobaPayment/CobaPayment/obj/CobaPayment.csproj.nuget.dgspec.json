@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "D:\\Project\\CobaPayment\\CobaPayment\\CobaPayment.csproj": {}
+    "D:\\Project\\CobaP\\CobaPayment\\CobaPayment\\CobaPayment\\CobaPayment.csproj": {}
   },
   "projects": {
-    "D:\\Project\\CobaPayment\\CobaPayment\\CobaPayment.csproj": {
+    "D:\\Project\\CobaP\\CobaPayment\\CobaPayment\\CobaPayment\\CobaPayment.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Project\\CobaPayment\\CobaPayment\\CobaPayment.csproj",
+        "projectUniqueName": "D:\\Project\\CobaP\\CobaPayment\\CobaPayment\\CobaPayment\\CobaPayment.csproj",
         "projectName": "CobaPayment",
-        "projectPath": "D:\\Project\\CobaPayment\\CobaPayment\\CobaPayment.csproj",
+        "projectPath": "D:\\Project\\CobaP\\CobaPayment\\CobaPayment\\CobaPayment\\CobaPayment.csproj",
         "packagesPath": "C:\\Users\\longd\\.nuget\\packages\\",
-        "outputPath": "D:\\Project\\CobaPayment\\CobaPayment\\obj\\",
+        "outputPath": "D:\\Project\\CobaP\\CobaPayment\\CobaPayment\\CobaPayment\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Microsoft\\Xamarin\\NuGet\\"
@@ -45,6 +45,10 @@
             "Microsoft.AspNet.WebApi.Client": {
               "target": "Package",
               "version": "[5.2.7, )"
+            },
+            "Microsoft.AspNet.WebPages": {
+              "target": "Package",
+              "version": "[3.2.7, )"
             },
             "Microsoft.VisualStudio.Web.CodeGeneration.Design": {
               "target": "Package",
