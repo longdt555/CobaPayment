@@ -83,7 +83,7 @@ namespace IntergatedBaoKimPayment.Controllers
             using (var client = new HttpClient())
             {
                 client.BaseAddress = new Uri(devHost);
-                client.DefaultRequestHeaders.Add("jwt", FunctionHelpers.ZoomToken());
+                client.DefaultRequestHeaders.Add("jwt", FunctionHelpers.GenerateJwtToken());
                 client.DefaultRequestHeaders.Accept.Clear();
                 client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
