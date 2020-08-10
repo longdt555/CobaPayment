@@ -284,7 +284,7 @@
         });
         $('#nlpayment').click(function () {
             $.ajax({
-                url: '/Payment/Send',
+                url: '/Payment/CreateProductAsync',
                 type: 'post',
                 dataType: 'json',
                 data: $('#order-form').serialize(),

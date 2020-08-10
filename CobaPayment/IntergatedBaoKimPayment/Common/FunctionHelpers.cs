@@ -33,18 +33,70 @@ namespace CobastockPayment.Common
                 }),
 
                 Expires = now.AddMinutes(Convert.ToInt32(expireMinutes)),
-
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(symmetricKey), SecurityAlgorithms.HmacSha256Signature)
             };
 
             SecurityToken securityToken = tokenHandler.CreateToken(tokenDescriptor);
-
             var token = tokenHandler.WriteToken(securityToken);
-
-
             return token;
         }
+        public static string ZoomToken(OrderParamModel model)
+        {
+            // Token will be good for 20 minutes
+            DateTime Expiry = DateTime.UtcNow.AddMinutes(20);
 
+            int ts = (int)(Expiry - new DateTime(1970, 1, 1)).TotalSeconds;
+
+            var generator = new Random();
+            Byte[] b = new Byte[32];
+            generator.NextBytes(b);
+            var tokenId = Convert.ToBase64String(b);
+
+            // Create Security key  using private key above:
+            var securityKey = new Microsoft.IdentityModel.Tokens.SymmetricSecurityKey(Encoding.UTF8.GetBytes(DEV_API_SECRET));
+
+            // length should be >256b
+            var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256Signature);
+
+            //Finally create a Token
+            var header = new JwtHeader(credentials);
+
+            //Zoom Required Payload
+            var payload = new JwtPayload
+            {
+                { "iss", DEV_API_KEY},
+                { "exp", ts },
+                { "jti", tokenId },
+                { "form_params", new OrderParamModel {
+                mrc_order_id = model.mrc_order_id,
+                total_amount = model.total_amount,
+                description = model.description,
+                url_success = model.url_success,
+                merchant_id = model.merchant_id,
+                url_detail = model.url_detail,
+                lang = model.lang,
+                bpm_id = model.bpm_id,
+                accept_bank = model.accept_bank,
+                accept_cc = model.accept_cc,
+                accept_qrpay = model.accept_qrpay,
+                accept_e_wallet = model.accept_e_wallet,
+                webhooks = model.webhooks,
+                customer_email = model.customer_email,
+                customer_phone = model.customer_phone,
+                customer_name = model.customer_name,
+                customer_address = model.customer_address
+                   }
+                }
+            };
+
+            var secToken = new JwtSecurityToken(header, payload);
+            var handler = new JwtSecurityTokenHandler();
+
+            // Token to String so you can use it in your client
+            var tokenString = handler.WriteToken(secToken);
+
+            return tokenString;
+        }
         public static string GetMD5Hash(String input)
         {
             System.Security.Cryptography.MD5CryptoServiceProvider x = new System.Security.Cryptography.MD5CryptoServiceProvider();

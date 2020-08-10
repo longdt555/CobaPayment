@@ -3,6 +3,7 @@ using CobastockPayment.Common;
 using IntergatedBaoKimPayment.Models;
 using Newtonsoft.Json.Linq;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -82,15 +83,14 @@ namespace IntergatedBaoKimPayment.Controllers
             return request;
         }
 
-        public ActionResult Send(OrderParamModel model)
+        public async Task<Uri> CreateProductAsync(OrderParamModel model)
         {
             using (var client = new HttpClient())
             {
-                client.BaseAddress = new Uri(devHost);
-                client.DefaultRequestHeaders.Add("jwt", FunctionHelpers.GenerateJwtToken());
+                client.BaseAddress = new Uri(proHost);
+                client.DefaultRequestHeaders.Add("jwt", FunctionHelpers.ZoomToken(model));
                 client.DefaultRequestHeaders.Accept.Clear();
                 client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-                // Order infor
                 var order = new OrderParamModel();
                 order.mrc_order_id = model.mrc_order_id;
                 order.total_amount = model.total_amount;
@@ -109,9 +109,12 @@ namespace IntergatedBaoKimPayment.Controllers
                 order.customer_phone = model.customer_phone;
                 order.customer_name = model.customer_name;
                 order.customer_address = model.customer_address;
-                HttpContent content = new StringContent(order.ToString(), Encoding.UTF8, "application/json");
-                var response = client.PostAsJsonAsync(sendOrderApi, GetParamPost(order));
-                return Json(new { });
+
+                //HttpContent content = new StringContent(order.ToString(), Encoding.UTF8, "application/json");
+                //var response = client.PostAsJsonAsync(sendOrderApi, GetParamPost(order));
+                HttpResponseMessage response = await client.PostAsync(sendOrderApi);
+                response.EnsureSuccessStatusCode();
+                return response.Headers.Location;
             }
         }
         #region GetBankList: get list of bank from BAOKIM api
