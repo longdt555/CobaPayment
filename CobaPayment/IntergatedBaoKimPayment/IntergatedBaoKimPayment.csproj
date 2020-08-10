@@ -141,10 +141,12 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\AccountModel.cs" />
+    <Compile Include="Models\ApiResponseBaseModel.cs" />
     <Compile Include="Models\BankModel.cs" />
-    <Compile Include="Models\BaoKimResponseModel.cs" />
-    <Compile Include="Models\OrderInfoModel.cs" />
-    <Compile Include="Models\RequestCheckOrderModel.cs" />
+    <Compile Include="Models\BaseModel.cs" />
+    <Compile Include="Models\FeeModel.cs" />
+    <Compile Include="Models\OrderModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

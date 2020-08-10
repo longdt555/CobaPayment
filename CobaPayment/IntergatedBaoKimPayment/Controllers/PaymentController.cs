@@ -34,6 +34,9 @@ namespace IntergatedBaoKimPayment.Controllers
         private const string orderListDetailApi = "api/v4/order/list";
         // cancel order api
         private const string cancelOrderApi = "api/v4/order/cancel";
+        // account detail
+        private const string accountDetailApi = "api/v4/account/detail";
+
 
         // GET: Payment
         public ActionResult Index()
@@ -88,7 +91,6 @@ namespace IntergatedBaoKimPayment.Controllers
                 client.DefaultRequestHeaders.Add("jwt", FunctionHelpers.GenerateJwtToken());
                 client.DefaultRequestHeaders.Accept.Clear();
                 client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-
                 // Order infor
                 var order = new OrderParamModel();
                 order.mrc_order_id = model.mrc_order_id;
@@ -114,9 +116,9 @@ namespace IntergatedBaoKimPayment.Controllers
             }
         }
         #region GetBankList: get list of bank from BAOKIM api
-        public async Task<BankPaymentModel> GetBankList()
+        public async Task<BankModel<BankPaymentDetailModel>> GetBankList()
         {
-            BankPaymentModel bankPaymentList = null;
+            BankModel<BankPaymentDetailModel> bankPaymentList = null;
             using (var client = new HttpClient())
             {
                 // New code:
@@ -128,7 +130,7 @@ namespace IntergatedBaoKimPayment.Controllers
                 HttpResponseMessage response = await client.GetAsync(bankPayApi);
                 if (response.IsSuccessStatusCode)
                 {
-                    bankPaymentList = await response.Content.ReadAsAsync<BankPaymentModel>();
+                    bankPaymentList = await response.Content.ReadAsAsync<BankModel<BankPaymentDetailModel>>();
                 }
             }
             return bankPaymentList;

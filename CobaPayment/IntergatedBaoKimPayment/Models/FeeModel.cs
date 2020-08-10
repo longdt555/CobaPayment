@@ -5,9 +5,9 @@ using System.Web;
 
 namespace IntergatedBaoKimPayment.Models
 {
-    public class FeeModel : ApiResponseBaseModel
+    public class FeeModel<T> : ApiResponseBaseModel
     {
-        public List<FeeDetailModel> data { get; set; }
+        public List<T> data { get; set; }
     }
     public class FeeDetailModel
     {

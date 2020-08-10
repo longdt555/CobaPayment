@@ -70,41 +70,42 @@ namespace CobastockPayment.Common
                     _Message = "Giao dịch thành công";
                     break;
                 case "01":
-                    _Message = "Lỗi, địa chỉ IP truy cập API của NgânLượng.vn bị từ chối";
+                    _Message = "Lỗi hệ thống";
                     break;
                 case "02":
-                    _Message = "Lỗi, tham số gửi từ merchant tới NgânLượng.vn chưa chính xác.";
+                    _Message = "Lỗi validate dữ liệu/tham số";
                     break;
                 case "03":
-                    _Message = "Lỗi, mã merchant không tồn tại hoặc merchant đang bị khóa kết nối tới NgânLượng.vn";
+                    _Message = "Lỗi không tìm thấy đối tượng (tài khoản/giao dịch/đơn hàng...)";
                     break;
                 case "04":
-                    _Message = "Lỗi, mã checksum không chính xác";
+                    _Message = "Lỗi tài khoản bị khóa";
                     break;
                 case "05":
-                    _Message = "Tài khoản nhận tiền nạp của merchant không tồn tại";
+                    _Message = "Lỗi không được phép thực hiện giao dịch (đăng nhập, xác thực 2FA lỗi)";
                     break;
                 case "06":
-                    _Message = "Tài khoản nhận tiền nạp của  merchant đang bị khóa hoặc bị phong tỏa, không thể thực hiện được giao dịch nạp tiền";
+                    _Message = "Lỗi số tiền giao dịch không chính xác";
                     break;
                 case "07":
-                    _Message = "Thẻ đã được sử dụng";
+                    _Message = "Lỗi giao dịch lặp (vd thanh toán 2 lần...)";
                     break;
                 case "08":
-                    _Message = "Thẻ bị khóa";
+                    _Message = "Lỗi hệ thống nội bộ";
                     break;
                 case "09":
-                    _Message = "Thẻ hết hạn sử dụng";
+                    _Message = "Lỗi số dư tài khoản không đủ thực hiện giao dịch";
                     break;
                 case "10":
-                    _Message = "Thẻ chưa được kích hoạt hoặc không tồn tại";
+                    _Message = "Lỗi số tiền giao dịch vượt quá hạn mức ngày";
                     break;
                 case "11":
-                    _Message = "Mã thẻ sai định dạng";
+                    _Message = "Lỗi xác minh giao dịch";
                     break;
                 case "12":
-                    _Message = "Sai số serial của thẻ";
+                    _Message = "Lỗi cấu hình tính phí";
                     break;
+                //
                 case "13":
                     _Message = "Mã thẻ và số serial không khớp";
                     break;

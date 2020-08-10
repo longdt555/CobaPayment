@@ -11,21 +11,9 @@ namespace IntergatedBaoKimPayment.Models
         public string offset { get; set; }
         public string limit { get; set; }
     }
-    public class BankPaymentModel : ApiResponseBaseModel
+    public class BankModel<T> : ApiResponseBaseModel
     {
-        public List<BankPaymentDetailModel> data { get; set; }
-    }
-    public class BankCardModel : ApiResponseBaseModel
-    {
-        public List<BankCardDetailModel> data { get; set; }
-    }
-    public class BankAccountModel : ApiResponseBaseModel
-    {
-        public List<BankAccountDetailModel> data { get; set; }
-    }
-    public class BankModel : ApiResponseBaseModel
-    {
-        public List<BankDetailModel> data { get; set; }
+        public List<T> data { get; set; }
     }
     public class BankDetailModel
     {
