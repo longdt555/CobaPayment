@@ -82,7 +82,6 @@ namespace IntergatedBaoKimPayment.Controllers
             return request;
         }
 
-
         public ActionResult Send(OrderParamModel model)
         {
             using (var client = new HttpClient())

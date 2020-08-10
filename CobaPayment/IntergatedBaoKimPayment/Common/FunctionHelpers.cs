@@ -105,33 +105,78 @@ namespace CobastockPayment.Common
                 case "12":
                     _Message = "Lỗi cấu hình tính phí";
                     break;
-                //
                 case "13":
-                    _Message = "Mã thẻ và số serial không khớp";
+                    _Message = "Lỗi không tìm thấy tài khoản giao dịch";
                     break;
                 case "14":
-                    _Message = "Thẻ không tồn tại";
+                    _Message = "Lỗi số tiền quá nhỏ so với hạn mức";
                     break;
                 case "15":
-                    _Message = "Thẻ không sử dụng được";
+                    _Message = "Lỗi số tiền quá lớn so với hạn mức";
                     break;
                 case "16":
-                    _Message = "Số lần tưử của thẻ vượt quá giới hạn cho phép";
+                    _Message = "Lỗi user chưa xác thực tài khoản";
                     break;
                 case "17":
-                    _Message = "Hệ thống Telco bị lỗi hoặc quá tải, thẻ chưa bị trừ";
+                    _Message = "Lỗi trạng thái giao dịch chưa hoàn thành";
                     break;
                 case "18":
-                    _Message = "Hệ thống Telco  bị lỗi hoặc quá tải, thẻ có thể bị trừ, cần phối hợp với nhà mạng để đối soát";
+                    _Message = "Lỗi hoàn tiền lặp(khi thực hiện hoàn tiền)";
                     break;
                 case "19":
-                    _Message = "Kết nối NgânLượng với Telco bị lỗi, thẻ chưa bị trừ.";
+                    _Message = "Tài khoản Ngân hàng đã tồn tại trên hệ thống";
                     break;
                 case "20":
-                    _Message = "Kết nối tới Telco thành công, thẻ bị trừ nhưng chưa cộng tiền trên NgânLượng.vn";
+                    _Message = "Không tìm thấy thẻ Ngân hàng";
                     break;
-                case "99":
-                    _Message = "Lỗi tuy nhiên lỗi chưa được định nghĩa hoặc chưa xác định được nguyên nhân";
+                case "21":
+                    _Message = "Lỗi chuyển tiền sang Thẻ ngân hàng";
+                    break;
+                case "22":
+                    _Message = "Tên Tài khoản ngân hàng không trùng với tên Ví";
+                    break;
+                case "23":
+                    _Message = "Không tìm thấy Tài khoản Ngân hàng";
+                    break;
+                case "24":
+                    _Message = "Lỗi khác (không xác định)";
+                    break;
+                case "25":
+                    _Message = "Loại giao dịch không được hoàn tiền";
+                    break;
+                case "27":
+                    _Message = "Thẻ Ngân hàng đã tồn tại trên hệ thống";
+                    break;
+                case "47":
+                    _Message = "Liên kết ví đã tồn tại";
+                    break;
+                case "48":
+                    _Message = "Không tìm thấy Merchant";
+                    break;
+                case "49":
+                    _Message = "Mã xác thực liên kết không chính xác";
+                    break;
+                case "51":
+                    _Message = "Ticket sai định dạng";
+                    break;
+
+                case "52":
+                    _Message = "Token liên kết không hợp lệ";
+                    break;
+                case "53":
+                    _Message = "Liên kết đã được xác thực. Không thể thực hiện lại";
+                    break;
+                case "61":
+                    _Message = "Ticket đã hết hạn. Vui lòng thực hiện lại";
+                    break;
+                case "62":
+                    _Message = "Linked code đã hết hạn. Vui lòng thực hiện lại";
+                    break;
+                case "63":
+                    _Message = "Token Unauthorization";
+                    break;
+                case "180":
+                    _Message = "Lỗi xác thực thẻ";
                     break;
             }
             return _Message;
