@@ -40,11 +40,12 @@ namespace IntergatedBaoKimPayment.Controllers
         {
             return View();
         }
+
         public ActionResult Cart()
         {
             return View();
         }
-        private static String GetParamPost(OrderInfoModel order)
+        private static String GetParamPost(OrderParamModel order)
         {
 
             String request = "";
@@ -79,7 +80,7 @@ namespace IntergatedBaoKimPayment.Controllers
         }
 
 
-        public ActionResult Send(OrderInfoModel model)
+        public ActionResult Send(OrderParamModel model)
         {
             using (var client = new HttpClient())
             {
@@ -89,7 +90,7 @@ namespace IntergatedBaoKimPayment.Controllers
                 client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
                 // Order infor
-                var order = new OrderInfoModel();
+                var order = new OrderParamModel();
                 order.mrc_order_id = model.mrc_order_id;
                 order.total_amount = model.total_amount;
                 order.description = model.description;

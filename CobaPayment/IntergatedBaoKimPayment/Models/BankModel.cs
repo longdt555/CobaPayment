@@ -13,21 +13,21 @@ namespace IntergatedBaoKimPayment.Models
     }
     public class BankPaymentModel : ApiResponseBaseModel
     {
-        public List<BankPaymentModelDetail> data { get; set; }
+        public List<BankPaymentDetailModel> data { get; set; }
     }
     public class BankCardModel : ApiResponseBaseModel
     {
-        public List<BankCardModelDetail> data { get; set; }
+        public List<BankCardDetailModel> data { get; set; }
     }
     public class BankAccountModel : ApiResponseBaseModel
     {
-        public List<BankAccountDetail> data { get; set; }
+        public List<BankAccountDetailModel> data { get; set; }
     }
     public class BankModel : ApiResponseBaseModel
     {
-        public List<BankDetail> data { get; set; }
+        public List<BankDetailModel> data { get; set; }
     }
-    public class BankDetail
+    public class BankDetailModel
     {
         public string id { get; set; }
         public string name { get; set; }
@@ -36,7 +36,7 @@ namespace IntergatedBaoKimPayment.Models
         public int lb_available { get; set; }
     }
 
-    public class BankPaymentModelDetail : BaseModel
+    public class BankPaymentDetailModel : BaseModel
     {
         public string name { get; set; }
         public int bank_id { get; set; }
@@ -47,7 +47,7 @@ namespace IntergatedBaoKimPayment.Models
         public string bank_logo { get; set; }
     }
 
-    public class BankCardModelDetail
+    public class BankCardDetailModel
     {
         public string id { get; set; }
         public int user_id { get; set; }
@@ -67,7 +67,7 @@ namespace IntergatedBaoKimPayment.Models
         public string updated_at { get; set; }
     }
 
-    public class BankAccountDetail : BaseModel
+    public class BankAccountDetailModel : BaseModel
     {
         public int user_id { get; set; }
         public string bank_id { get; set; }
