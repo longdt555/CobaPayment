@@ -91,28 +91,10 @@ namespace IntergatedBaoKimPayment.Controllers
                 client.DefaultRequestHeaders.Add("jwt", FunctionHelpers.ZoomToken(model));
                 client.DefaultRequestHeaders.Accept.Clear();
                 client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-                var order = new OrderParamModel();
-                order.mrc_order_id = model.mrc_order_id;
-                order.total_amount = model.total_amount;
-                order.description = model.description;
-                order.url_success = model.url_success;
-                order.merchant_id = model.merchant_id;
-                order.url_detail = model.url_detail;
-                order.lang = model.lang;
-                order.bpm_id = model.bpm_id;
-                order.accept_bank = model.accept_bank;
-                order.accept_cc = model.accept_cc;
-                order.accept_qrpay = model.accept_qrpay;
-                order.accept_e_wallet = model.accept_e_wallet;
-                order.webhooks = model.webhooks;
-                order.customer_email = model.customer_email;
-                order.customer_phone = model.customer_phone;
-                order.customer_name = model.customer_name;
-                order.customer_address = model.customer_address;
 
-                //HttpContent content = new StringContent(order.ToString(), Encoding.UTF8, "application/json");
+                HttpContent content = new StringContent(model.ToString(), Encoding.UTF8, "application/json");
                 //var response = client.PostAsJsonAsync(sendOrderApi, GetParamPost(order));
-                HttpResponseMessage response = await client.PostAsync(sendOrderApi);
+                HttpResponseMessage response = await client.PostAsJsonAsync(sendOrderApi, GetParamPost(model));
                 response.EnsureSuccessStatusCode();
                 return response.Headers.Location;
             }
