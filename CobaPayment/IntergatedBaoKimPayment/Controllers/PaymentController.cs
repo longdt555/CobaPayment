@@ -10,6 +10,7 @@ using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using System.Xml;
@@ -67,7 +68,7 @@ namespace IntergatedBaoKimPayment.Controllers
             request += "&customer_address=" + order.customer_address;
             return request;
         }
-        private static String GetParamPost(BankModel bank)
+        private static String GetParamPost(BankParamModel bank)
         {
 
             String request = "";
@@ -111,6 +112,26 @@ namespace IntergatedBaoKimPayment.Controllers
                 return Json(new { });
             }
         }
-
+        #region GetBankList: get list of bank from BAOKIM api
+        public async Task<BankPaymentModel> GetBankList()
+        {
+            BankPaymentModel bankPaymentList = null;
+            using (var client = new HttpClient())
+            {
+                // New code:
+                client.BaseAddress = new Uri(proHost);
+                client.DefaultRequestHeaders.Add("jwt", FunctionHelpers.GenerateJwtToken());
+                client.DefaultRequestHeaders.Accept.Clear();
+                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                // New code:
+                HttpResponseMessage response = await client.GetAsync(bankPayApi);
+                if (response.IsSuccessStatusCode)
+                {
+                    bankPaymentList = await response.Content.ReadAsAsync<BankPaymentModel>();
+                }
+            }
+            return bankPaymentList;
+        }
+        #endregion
     }
 }

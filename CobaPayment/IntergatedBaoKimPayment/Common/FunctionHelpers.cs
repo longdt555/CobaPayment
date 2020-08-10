@@ -15,38 +15,6 @@ namespace CobastockPayment.Common
         private const string DEV_API_KEY = "a18ff78e7a9e44f38de372e093d87ca1";
         private const string DEV_API_SECRET = "9623ac03057e433f95d86cf4f3bef5cc";
 
-        public static string ZoomToken()
-        {
-            // Token will be good for 20 minutes
-            DateTime Expiry = DateTime.UtcNow.AddMinutes(20);
-
-            int ts = (int)(Expiry - new DateTime(1970, 1, 1)).TotalSeconds;
-
-            // Create Security key  using private key above:
-            var securityKey = new Microsoft.IdentityModel.Tokens.SymmetricSecurityKey(Encoding.UTF8.GetBytes(DEV_API_SECRET));
-
-            // length should be >256b
-            var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
-
-            //Finally create a Token
-            var header = new JwtHeader(credentials);
-
-            //Zoom Required Payload
-            var payload = new JwtPayload
-            {
-                { "iss", DEV_API_KEY},
-                { "exp", ts },
-            };
-
-            var secToken = new JwtSecurityToken(header, payload);
-            var handler = new JwtSecurityTokenHandler();
-
-            // Token to String so you can use it in your client
-            var tokenString = handler.WriteToken(secToken);
-
-            return tokenString;
-        }
-
         public static string GenerateJwtToken(int expireMinutes = 1)
         {
             var symmetricKey = Encoding.ASCII.GetBytes(DEV_API_SECRET);

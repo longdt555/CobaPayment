@@ -5,7 +5,8 @@ using System.Web;
 
 namespace IntergatedBaoKimPayment.Models
 {
-    public class RequestCheckOrderModel
+    public class BaseModel
     {
+        public int id { get; set; }
     }
 }

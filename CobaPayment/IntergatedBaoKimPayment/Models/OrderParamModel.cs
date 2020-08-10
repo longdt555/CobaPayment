@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace CobastockPayment
 {
-    public class OrderInfoModel
+    public class OrderParamModel
     {
         public string mrc_order_id { get; set; }
         public int total_amount { get; set; }
