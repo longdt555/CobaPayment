@@ -1,6 +1,7 @@
 ﻿using CobastockPayment;
 using CobastockPayment.Common;
 using IntergatedBaoKimPayment.Models;
+using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections;
@@ -83,20 +84,40 @@ namespace IntergatedBaoKimPayment.Controllers
             return request;
         }
 
-        public async Task<Uri> CreateProductAsync(OrderParamModel model)
+        public async Task<OrderParamModel> CreateProductAsync([Microsoft.AspNetCore.Mvc.FromBody]OrderParamModel model)
         {
-            using (var client = new HttpClient())
-            {
-                client.BaseAddress = new Uri(proHost);
-                client.DefaultRequestHeaders.Add("jwt", FunctionHelpers.ZoomToken(model));
-                client.DefaultRequestHeaders.Accept.Clear();
-                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+            var query = new Dictionary<string, string> { };
+            query.Add("mrc_order_id", model.mrc_order_id);
+            query.Add("total_amount", model.total_amount.ToString());
+            query.Add("description", model.description);
+            query.Add("url_detail", model.url_detail);
+            query.Add("lang", model.lang);
+            query.Add("bpm_id", model.bpm_id.ToString());
+            query.Add("accept_bank", model.accept_bank.ToString());
+            query.Add("accept_cc", model.accept_cc.ToString());
+            query.Add("accept_qrpay", model.accept_qrpay.ToString());
+            query.Add("accept_e_wallet", model.accept_e_wallet.ToString());
+            query.Add("webhooks", model.webhooks.ToString());
+            query.Add("customer_email", model.customer_email.ToString());
+            query.Add("customer_phone", model.customer_phone.ToString());
+            query.Add("customer_name", model.customer_name.ToString());
+            query.Add("customer_address", model.customer_address.ToString());
 
-                HttpContent content = new StringContent(model.ToString(), Encoding.UTF8, "application/json");
-                //var response = client.PostAsJsonAsync(sendOrderApi, GetParamPost(order));
-                HttpResponseMessage response = await client.PostAsJsonAsync(sendOrderApi, GetParamPost(model));
-                response.EnsureSuccessStatusCode();
-                return response.Headers.Location;
+            try
+            {
+                HttpClient client = new HttpClient();
+                client.BaseAddress = new Uri(proHost);
+                client.DefaultRequestHeaders.Add("Accept-Language", "vi");
+                client.DefaultRequestHeaders.Add("jwt", FunctionHelpers.ZoomToken(model));
+
+                var serializeModel = JsonConvert.SerializeObject(model);// using Newtonsoft.Json;
+                var response = await client.PostAsJsonAsync<string>(sendOrderApi, serializeModel);
+                return null;
+
+            }
+            catch (Exception ex)
+            {
+                return null;
             }
         }
         #region GetBankList: get list of bank from BAOKIM api
