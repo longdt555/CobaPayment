@@ -53,7 +53,7 @@ namespace CobastockPayment.Common
             var tokenId = Convert.ToBase64String(b);
 
             // Create Security key  using private key above:
-            var securityKey = new Microsoft.IdentityModel.Tokens.SymmetricSecurityKey(Encoding.UTF8.GetBytes(DEV_API_SECRET));
+            var securityKey = new Microsoft.IdentityModel.Tokens.SymmetricSecurityKey(Encoding.UTF8.GetBytes(PRO_API_SECRET));
 
             // length should be >256b
             var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256Signature);
@@ -66,7 +66,7 @@ namespace CobastockPayment.Common
                 //Zoom Required Payload
                 payload = new JwtPayload
                 {
-                    { "iss", DEV_API_KEY},
+                    { "iss", PRO_API_KEY},
                     { "exp", ts },
                     { "jti", tokenId },
                     { "form_params", new OrderParamModel {

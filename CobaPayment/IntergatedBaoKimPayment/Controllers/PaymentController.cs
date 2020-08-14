@@ -46,34 +46,6 @@ namespace IntergatedBaoKimPayment.Controllers
             return View();
         }
 
-        public ActionResult Cart()
-        {
-            return View();
-        }
-        private static String GetParamPost(OrderParamModel order)
-        {
-
-            String request = "";
-            request += "&mrc_order_id=" + order.mrc_order_id;
-            request += "&total_amount=" + order.total_amount;
-            request += "&description=" + order.description;
-            request += "&merchant_id=" + order.merchant_id;
-            request += "&url_detail=" + order.url_detail;
-            request += "&url_success=" + order.url_success;
-            request += "&url_detail=" + order.url_detail;
-            request += "&lang=" + order.lang;
-            request += "&bpm_id=" + order.bpm_id;
-            request += "&accept_bank=" + order.accept_bank;
-            request += "&accept_cc=" + order.accept_cc;
-            request += "&accept_qrpay=" + order.accept_qrpay;
-            request += "&accept_e_wallet=" + order.accept_e_wallet;
-            request += "&webhooks=" + order.webhooks;
-            request += "&customer_email=" + order.customer_email;
-            request += "&customer_phone=" + order.customer_phone;
-            request += "&customer_name=" + order.customer_name;
-            request += "&customer_address=" + order.customer_address;
-            return request;
-        }
         private static String GetParamPost(BankParamModel bank)
         {
 
@@ -111,7 +83,7 @@ namespace IntergatedBaoKimPayment.Controllers
                 client.DefaultRequestHeaders.Add("jwt", FunctionHelpers.ZoomToken(model));
 
                 var serializeModel = JsonConvert.SerializeObject(model);// using Newtonsoft.Json;
-                var response = await client.PostAsJsonAsync<string>(sendOrderApi, serializeModel);
+                var response = await client.PostAsJsonAsync(sendOrderApi, model);
                 return null;
 
             }
