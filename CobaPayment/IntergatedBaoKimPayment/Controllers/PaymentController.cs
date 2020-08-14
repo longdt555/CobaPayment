@@ -80,7 +80,7 @@ namespace IntergatedBaoKimPayment.Controllers
                 HttpClient client = new HttpClient();
                 client.BaseAddress = new Uri(proHost);
                 client.DefaultRequestHeaders.Add("Accept-Language", "vi");
-                client.DefaultRequestHeaders.Add("jwt", FunctionHelpers.ZoomToken(model));
+                client.DefaultRequestHeaders.Add("jwt", FunctionHelpers.GenerateJwtToken());
 
                 var serializeModel = JsonConvert.SerializeObject(model);// using Newtonsoft.Json;
                 var response = await client.PostAsJsonAsync(sendOrderApi, model);
