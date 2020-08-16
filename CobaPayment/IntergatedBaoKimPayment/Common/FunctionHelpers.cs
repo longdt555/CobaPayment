@@ -17,7 +17,7 @@ namespace CobastockPayment.Common
 
         public static string GenerateJwtToken(int expireMinutes = 1)
         {
-            var symmetricKey = Encoding.ASCII.GetBytes(PRO_API_SECRET);
+            var symmetricKey = Encoding.ASCII.GetBytes(DEV_API_SECRET);
             var tokenHandler = new JwtSecurityTokenHandler();
             var generator = new Random();
             Byte[] b = new Byte[32];
@@ -28,7 +28,7 @@ namespace CobastockPayment.Common
             var tokenDescriptor = new SecurityTokenDescriptor
             {
                 Subject = new ClaimsIdentity(new[]{
-                    new Claim("iss", PRO_API_KEY),
+                    new Claim("iss", DEV_API_KEY),
                     new Claim("jti", tokenId)
                 }),
 
