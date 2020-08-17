@@ -9,9 +9,10 @@ namespace CobastockPayment.Common
     public static class FunctionHelpers
     {
         // APi_KEY + API_SECRET
+        //Production
         private const string PRO_API_KEY = "JRCqv5kLw82Hz515RqbwaLEpi96ufrRR";
         private const string PRO_API_SECRET = "aTfL6YZSOWO68KltB8ardUfYZTAzC9g3";
-
+        //devlopment
         private const string DEV_API_KEY = "a18ff78e7a9e44f38de372e093d87ca1";
         private const string DEV_API_SECRET = "9623ac03057e433f95d86cf4f3bef5cc";
 
