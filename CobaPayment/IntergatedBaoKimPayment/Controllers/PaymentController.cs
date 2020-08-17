@@ -81,8 +81,7 @@ namespace IntergatedBaoKimPayment.Controllers
             {
                 using (var client = new HttpClient())
                 {
-
-                    client.BaseAddress = new Uri(devHost);
+                    client.BaseAddress = new Uri(proHost);
                     client.DefaultRequestHeaders.Add("Accept-Language", "vi");
                     client.DefaultRequestHeaders.Add("jwt", String.Format(@"Bearer {0}", FunctionHelpers.GenerateJwtToken()));
                     HttpResponseMessage response = await client.PostAsJsonAsync(sendOrderApi, model);
