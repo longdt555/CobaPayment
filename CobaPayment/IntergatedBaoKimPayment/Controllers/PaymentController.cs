@@ -104,22 +104,22 @@ namespace IntergatedBaoKimPayment.Controllers
         }
         #endregion
         #region GetBankList: get list of bank from BAOKIM api
-        public async Task<ActionResult> OrderDetail(string orderId, string merchantOrderid)
+        public async Task<ActionResult> OrderDetail()
         {
             BankModel<BankPaymentDetailModel> bankPaymentList = null;
             var query = string.Empty;
-            if (!string.IsNullOrEmpty(orderId) && !string.IsNullOrEmpty(merchantOrderid))
-            {
-                query = "id=" + orderId + "&mrc_order_id=" + merchantOrderid;
-            }
+            //if (!string.IsNullOrEmpty(orderId) && !string.IsNullOrEmpty(merchantOrderid))
+            //{
+            //    query = "id=" + orderId + "&mrc_order_id=" + merchantOrderid;
+            //}
+            query = "id=" + 2 + "&mrc_order_id=" + 101542579;
             try
             {
                 using (var client = new HttpClient())
                 {
-                    client.BaseAddress = new Uri(devHost);
-                    client.DefaultRequestHeaders.Add("jwt", FunctionHelpers.GenerateJwtToken());
-                    client.DefaultRequestHeaders.Accept.Clear();
-                    client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                    client.BaseAddress = new Uri(proHost);
+                    client.DefaultRequestHeaders.Add("Accept-Language", "vi");
+                    client.DefaultRequestHeaders.Add("jwt", String.Format(@"Bearer {0}", FunctionHelpers.GenerateJwtToken()));
                     HttpResponseMessage response = await client.GetAsync(orderDetailApi + "?" + query);
                     if (response.IsSuccessStatusCode)
                     {
