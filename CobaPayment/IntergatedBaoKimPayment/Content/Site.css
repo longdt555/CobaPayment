@@ -29,7 +29,7 @@ textarea {
 ----------------------------------------------------------*/
 
 body {
-    background: #b6b7bc;
+    background: #fff;
     font-size: .80em;
     font-family: "Helvetica Neue", "Lucida Grande", "Segoe UI", Arial, Helvetica, Verdana, sans-serif;
     margin: 0px;
@@ -123,11 +123,11 @@ ul.bankList {
 }
 .list-content li {
     list-style: none outside none;
-    margin: 0 0 10px;
+    margin: 0 0 0px;
 }
 
     .list-content li .boxContent {
-        width: 636px;
+        width: 690px;
         border: 1px solid #cccccc;
         padding: 10px;
     }
