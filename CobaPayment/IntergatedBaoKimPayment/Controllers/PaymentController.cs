@@ -17,6 +17,8 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Services.Description;
 using System.Xml;
+using OnlinePayment;
+
 
 namespace IntergatedBaoKimPayment.Controllers
 {
@@ -49,7 +51,6 @@ namespace IntergatedBaoKimPayment.Controllers
 
         private static String GetQueryFromParams()
         {
-
             String request = "";
             return request;
         }
