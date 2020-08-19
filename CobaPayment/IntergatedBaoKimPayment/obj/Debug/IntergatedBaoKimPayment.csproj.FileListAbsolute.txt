@@ -1,7 +1,6 @@
 D:\Project\CobaP\CobaPayment\CobaPayment\IntergatedBaoKimPayment\obj\Debug\IntergatedBaoKimPayment.csprojAssemblyReference.cache
 D:\Project\CobaP\CobaPayment\CobaPayment\IntergatedBaoKimPayment\obj\Debug\IntergatedBaoKimPayment.csproj.CoreCompileInputs.cache
 D:\Project\CobaP\CobaPayment\CobaPayment\IntergatedBaoKimPayment\bin\IntergatedBaoKimPayment.dll.config
-D:\Project\CobaP\CobaPayment\CobaPayment\IntergatedBaoKimPayment\bin\IntergatedBaoKimPayment.dll
 D:\Project\CobaP\CobaPayment\CobaPayment\IntergatedBaoKimPayment\bin\IntergatedBaoKimPayment.pdb
 D:\Project\CobaP\CobaPayment\CobaPayment\IntergatedBaoKimPayment\bin\roslyn\csc.exe
 D:\Project\CobaP\CobaPayment\CobaPayment\IntergatedBaoKimPayment\bin\roslyn\csc.exe.config
