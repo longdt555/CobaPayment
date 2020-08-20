@@ -17,11 +17,9 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Services.Description;
 using System.Xml;
-
-
 namespace IntergatedBaoKimPayment.Controllers
 {
-    public class PaymentController : Controller
+    public class BaoKimPaymentController : Controller
     {
         // request host
         private const string devHost = "https://sandbox-api.baokim.vn/payment/";

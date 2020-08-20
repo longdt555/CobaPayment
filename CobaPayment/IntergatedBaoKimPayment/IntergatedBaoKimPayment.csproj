@@ -251,6 +251,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Common\FunctionHelpers.cs" />
+    <Compile Include="Controllers\BaoKimPaymentController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\PaymentController.cs" />
     <Compile Include="Global.asax.cs">
@@ -266,6 +267,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="baokim85c13b45f251b4b68756fa979ec516c7.txt" />
+    <Content Include="baokimcd8abb76af6392a1871ac7da4ce1e2f6.txt" />
     <Content Include="baokimd79ae96b920f95fc29270b1f98350611.txt" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
@@ -310,6 +312,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\BaoKimPayment\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
