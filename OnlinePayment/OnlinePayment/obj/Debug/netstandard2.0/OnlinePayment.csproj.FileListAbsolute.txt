@@ -7,3 +7,12 @@ D:\Project\OnlinePayment\OnlinePayment\obj\Debug\netstandard2.0\OnlinePayment.As
 D:\Project\OnlinePayment\OnlinePayment\obj\Debug\netstandard2.0\OnlinePayment.dll
 D:\Project\OnlinePayment\OnlinePayment\obj\Debug\netstandard2.0\OnlinePayment.pdb
 D:\Project\OnlinePayment\OnlinePayment\obj\Debug\netstandard2.0\OnlinePayment.csproj.CoreCompileInputs.cache
+D:\Project\CobaP\CobaPayment\OnlinePayment\OnlinePayment\bin\Debug\netstandard2.0\OnlinePayment.deps.json
+D:\Project\CobaP\CobaPayment\OnlinePayment\OnlinePayment\bin\Debug\netstandard2.0\OnlinePayment.dll
+D:\Project\CobaP\CobaPayment\OnlinePayment\OnlinePayment\bin\Debug\netstandard2.0\OnlinePayment.pdb
+D:\Project\CobaP\CobaPayment\OnlinePayment\OnlinePayment\obj\Debug\netstandard2.0\OnlinePayment.csprojAssemblyReference.cache
+D:\Project\CobaP\CobaPayment\OnlinePayment\OnlinePayment\obj\Debug\netstandard2.0\OnlinePayment.AssemblyInfoInputs.cache
+D:\Project\CobaP\CobaPayment\OnlinePayment\OnlinePayment\obj\Debug\netstandard2.0\OnlinePayment.AssemblyInfo.cs
+D:\Project\CobaP\CobaPayment\OnlinePayment\OnlinePayment\obj\Debug\netstandard2.0\OnlinePayment.dll
+D:\Project\CobaP\CobaPayment\OnlinePayment\OnlinePayment\obj\Debug\netstandard2.0\OnlinePayment.pdb
+D:\Project\CobaP\CobaPayment\OnlinePayment\OnlinePayment\obj\Debug\netstandard2.0\OnlinePayment.csproj.CoreCompileInputs.cache
