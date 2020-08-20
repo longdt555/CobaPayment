@@ -17,7 +17,6 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Services.Description;
 using System.Xml;
-using OnlinePayment;
 
 
 namespace IntergatedBaoKimPayment.Controllers
