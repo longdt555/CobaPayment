@@ -44,11 +44,34 @@
             padding-right: 10px;
             display: block;
             color: #777;
+            font-size: 12px;
         }
 
         .infor-customer {
-            width: 665px;
+            width: 715px;
             float: left;
+            border-bottom: 1px #ccc dotted;
+        }
+            .infor-customer dt {
+                font-weight: normal;
+                font-size: 13px;
+                width: 115px;
+                padding-top: 5px;
+            }
+            .infor-customer dd {
+                margin-left: 125px;
+            }
+
+        input {
+            box-shadow: none;
+            border-radius: 2px;
+            height: 20px;
+            padding: 4px 6px;
+            margin-bottom: 10px;
+            font-size: 13px;
+            line-height: 24px;
+            border-width: 1px;
+            /*border-color: #D8D8D8;*/           
         }
 
         .title-info-order {
@@ -59,9 +82,36 @@
             font-size: 15px;
             color: #1db453;
         }
+       .dl-horizontal{
+           margin-top:10px;
+       }
+        .dl-horizontal dt {
+            float: left;           
+            overflow: hidden;
+            clear: left;
+            text-align: right;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+        .dl-horizontal dd {
+            /*margin-left: 180px;*/
+        }
+        dd {
+            display: block;
+            margin-inline-start: 40px;
+        }
+        dt, dd {
+            line-height: 20px;
+        }
 
         dl {
             margin-bottom: 20px;
+        }
+        dt {
+            display: block;
+        }
+        ul, ol{
+            padding:0px;
         }
 
         .dl-order {
@@ -85,6 +135,7 @@
             color: #fff;
             font-weight: bold;
             width: 100px;
+            font-size:15px;
             text-align: center;
             background-color: #5bb75b;
             border-width: 0px;
@@ -99,7 +150,7 @@
         }
 
         .selected {
-            background-color: #e8f4fb;
+            background-color: #fff;
         }
 
         .method {
@@ -123,6 +174,10 @@
             top: 25px;
             right: 10px;
             width: 30px;
+        }
+        .img-bank {
+            border: 2px solid white;
+            background-color: white;
         }
 
         .cardList.clearfix {
@@ -159,7 +214,7 @@
             <div class="title-info-order">
                 Thông tin đơn hàng
             </div>
-            <table style=" clear: both; width: 400px;float:left;">
+            @*<table style=" clear: both; width: 400px;;float:left;">
                 <tr>
                     <td colspan="2"><p><span style="color:#ff5a00;font-weight:bold;text-decoration:underline;">Lưu ý</span> Bạn nhập đầy đủ thông tin sau </td>
                 </tr>
@@ -196,7 +251,29 @@
                         <input runat="server" type="text" id="buyer_mobile" name="buyer_mobile" class="field-check list-box" value="">
                     </td>
                 </tr>
-            </table>
+            </table>*@
+        <dl class="dl-horizontal">
+            <dt>Mã đơn hàng</dt>
+            <dd>
+                <input runat="server" type="text" id="" name="" class="field-check list-box" value="">
+            </dd>
+            <dt>Mô tả</dt>
+            <dd>
+                <input runat="server" type="text" id="" name="" class="field-check list-box" value="">
+            </dd>
+            <dt>Email khách hàng:</dt>
+            <dd>
+                <input runat="server" type="text" id="buyer_email" name="buyer_email" class="field-check list-box" value="">
+            </dd>
+            <dt>SĐT khách hàng:</dt>
+            <dd>
+                <input runat="server" type="text" id="buyer_mobile" name="buyer_mobile" class="field-check list-box" value="">
+            </dd>
+            <dt>Số tiền thanh toán:</dt>
+            <dd>
+                <input runat="server" type="text" id="" name="" class="field-check list-box" value="">
+            </dd>
+        </dl>
         </div>
         <div style="width:100%;">
             <div ID="txtserverkt" runat="server" name="txtserverkt"> </div>
@@ -211,7 +288,7 @@
                                 <span class="title">Sử dụng ví ngân lượng</span>
                                 <span class="dest">thanh toán bằng ví điện tử ngân lượng </span>
                             </div>
-                            <div class="check-box"><input type="radio" ID="NL" runat="server" name="v" /></div>
+                            <div class="check-box"><input type="checkbox" class="radio" ID="NL" runat="server" name="v" value="1" /></div>
                         </div>
                     </li>
                     <li class="active">
@@ -223,7 +300,7 @@
                                 <span class="title">Sử dụng QR code</span>
                                 <span class="dest">thanh toán bằng quẹt mã QR </span>
                             </div>
-                            <div class="check-box"><input type="radio" ID="NL" runat="server" name="v" /></div>
+                            <div class="check-box"><input type="checkbox" class="radio" ID="NL" runat="server" name="v" value="1" /></div>
                         </div>
                     </li>
                     <li>
@@ -235,7 +312,7 @@
                                 <span class="title">Sử dụng thẻ ATM nội địa</span>
                                 <span class="dest">thanh toán online thẻ ngân hàng nội địa </span>
                             </div>
-                            <div class="check-box"><input type="radio" id="ATM_ONLINE" runat="server" name="v" /></div>
+                            <div class="check-box"><input type="checkbox" class="radio" id="ATM_ONLINE" runat="server" name="v" value="1"/></div>
                         </div>
                         <div class="boxContent hide">
                             <p>
@@ -251,8 +328,8 @@
                                         {
                                             <li class="bank-online-methods">
                                                 <label for="vcb_ck_on">
-                                                    <img src="@item.bank_logo" alt="Ngân hàng @item.bank_short_name" width="80" />
-                                                    <input type="radio" ID="VCB" runat="server" name="bankcode" bank_payment_id="@item.id" />
+                                                    <img class="img-bank" src="@item.bank_logo" alt="Ngân hàng @item.bank_short_name" width="80" />
+                                                    <input type="checkbox" class="radio" ID="VCB" runat="server" name="bankcode" bank_payment_id="@item.id" />
                                                 </label>
                                             </li>
 
@@ -270,7 +347,7 @@
                             <span class="title">Sử dụng thẻ Visa/Master card</span>
                             <span class="dest">chọn thẻ ngân hàng thanh toán </span>
                         </div>
-                        <div class="check-box"><input type="radio" ID="VISA" runat="server" name="v" /></div>
+                        <div class="check-box"><input type="checkbox" class="radio" ID="VISA" runat="server" name="v" value="1" /></div>
                         <div style="margin-top:15px;clear:both;">
                             <li>
                                 <img style="width:100px; margin-left:70px" src="~/Content/Images/visa.png" />
@@ -305,6 +382,23 @@
                 success: function (response) { }
             });
         });
+        // checkbox
+        $("input:checkbox").on('click', function () {
+            // in the handler, 'this' refers to the box clicked on
+            var $box = $(this);
+            if ($box.is(":checked")) {
+                // the name of the box is retrieved using the .attr() method
+                // as it is assumed and expected to be immutable
+                var group = "input:checkbox[name='" + $box.attr("name") + "']";
+                // the checked state of the group/box on the other hand will change
+                // and the current value is retrieved using .prop() method
+                $(group).prop("checked", false);
+                $box.prop("checked", true);
+            } else {
+                $box.prop("checked", false);
+            }
+        });
+        //
     </script>
 </body>
 </html>
