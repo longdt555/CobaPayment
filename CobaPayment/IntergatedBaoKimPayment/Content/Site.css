@@ -128,7 +128,7 @@ ul.bankList {
 
     .list-content li .boxContent {
         width: 690px;
-        border: 1px solid #cccccc;
+        /*border: 1px solid #cccccc;*/
         padding: 10px;
     }
 
@@ -137,7 +137,7 @@ ul.bankList {
     }
 
     .list-content li .boxContent ul {
-        height: 280px;
+        height: 420px;
     }
 
 i.VISA, i.MASTE, i.AMREX, i.JCB, i.VCB, i.TCB, i.MB, i.VIB, i.ICB, i.EXB, i.ACB, i.HDB, i.MSB, i.NVB, i.DAB, i.SHB, i.OJB, i.SEA, i.TPB, i.PGB, i.BIDV, i.AGB, i.SCB, i.VPB, i.VAB, i.GPB, i.SGB, i.NAB, i.BAB {
