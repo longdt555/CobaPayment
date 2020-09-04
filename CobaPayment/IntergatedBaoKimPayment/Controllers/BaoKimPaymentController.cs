@@ -1,8 +1,7 @@
-﻿using CobastockPayment;
-using CobastockPayment.Common;
-using IntergatedBaoKimPayment.Common;
-using IntergatedBaoKimPayment.Models;
+﻿using Common;
+using Helpers;
 using IntergatedBaoKimPayment.ViewModels;
+using Models.Payment;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;

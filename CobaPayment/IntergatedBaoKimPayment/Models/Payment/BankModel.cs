@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace IntergatedBaoKimPayment.Models
+namespace Models.Payment
 {
     public class BankParamModel
     {
@@ -11,7 +11,7 @@ namespace IntergatedBaoKimPayment.Models
         public string offset { get; set; }
         public string limit { get; set; }
     }
-    public class BankModel<T> : ApiResponseBaseModel
+    public class BankModel<T> : ApiResponseBaseModel<List<string>>
     {
         public List<T> data { get; set; }
     }

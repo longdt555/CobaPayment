@@ -1,24 +1,21 @@
-﻿using Microsoft.IdentityModel.Tokens;
-using System;
+﻿using System;
+using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
+using Microsoft.IdentityModel.Tokens;
 using System.Security.Claims;
 using System.Text;
+using AutoMapper;
+using System.Linq;
+using System.Reflection;
+using Common;
 
-namespace CobastockPayment.Common
+namespace Helpers
 {
-    public static class FunctionHelpers
+    public static class FunctionHelper
     {
-        // APi_KEY + API_SECRET
-        //Production
-        public const string PRO_API_KEY = "JRCqv5kLw82Hz515RqbwaLEpi96ufrRR";
-        public const string PRO_API_SECRET = "aTfL6YZSOWO68KltB8ardUfYZTAzC9g3";
-        //devlopment
-        public const string DEV_API_KEY = "a18ff78e7a9e44f38de372e093d87ca1";
-        public const string DEV_API_SECRET = "9623ac03057e433f95d86cf4f3bef5cc";
-
         public static string GenerateJwtToken(int expireMinutes = 1)
         {
-            var symmetricKey = Encoding.ASCII.GetBytes(PRO_API_SECRET);
+            var symmetricKey = Encoding.ASCII.GetBytes(Constant.PRO_API_SECRET_EG);
             var tokenHandler = new JwtSecurityTokenHandler();
             var generator = new Random();
             Byte[] b = new Byte[32];
@@ -29,7 +26,7 @@ namespace CobastockPayment.Common
             var tokenDescriptor = new SecurityTokenDescriptor
             {
                 Subject = new ClaimsIdentity(new[]{
-                    new Claim("iss", PRO_API_KEY),
+                    new Claim("iss", Constant.PRO_API_KEY_EG),
                     new Claim("jti", tokenId)
                 }),
 
@@ -40,75 +37,6 @@ namespace CobastockPayment.Common
             SecurityToken securityToken = tokenHandler.CreateToken(tokenDescriptor);
             var token = tokenHandler.WriteToken(securityToken);
             return token;
-        }
-        public static string ZoomToken(OrderParamModel model = null)
-        {
-            // Token will be good for 20 minutes
-            DateTime Expiry = DateTime.UtcNow.AddMinutes(20);
-
-            int ts = (int)(Expiry - new DateTime(1970, 1, 1)).TotalSeconds;
-
-            var generator = new Random();
-            Byte[] b = new Byte[32];
-            generator.NextBytes(b);
-            var tokenId = Convert.ToBase64String(b);
-
-            // Create Security key  using public key above:
-            var securityKey = new Microsoft.IdentityModel.Tokens.SymmetricSecurityKey(Encoding.UTF8.GetBytes(PRO_API_SECRET));
-
-            // length should be >256b
-            var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256Signature);
-
-            //Finally create a Token
-            var header = new JwtHeader(credentials);
-            var payload = new JwtPayload();
-            if (model != null)
-            {
-                //Zoom Required Payload
-                payload = new JwtPayload
-                {
-                    { "iss", PRO_API_KEY},
-                    { "exp", ts },
-                    { "jti", tokenId },
-                    { "form_params", new OrderParamModel {
-                    mrc_order_id = model.mrc_order_id,
-                    total_amount = model.total_amount,
-                    description = model.description,
-                    url_success = model.url_success,
-                    merchant_id = model.merchant_id,
-                    url_detail = model.url_detail,
-                    lang = model.lang,
-                    bpm_id = model.bpm_id,
-                    accept_bank = model.accept_bank,
-                    accept_cc = model.accept_cc,
-                    accept_qrpay = model.accept_qrpay,
-                    accept_e_wallet = model.accept_e_wallet,
-                    webhooks = model.webhooks,
-                    customer_email = model.customer_email,
-                    customer_phone = model.customer_phone,
-                    customer_name = model.customer_name,
-                    customer_address = model.customer_address
-                       }
-                    }
-                };
-            }
-            else
-            {
-                payload = new JwtPayload
-                {
-                    { "iss", PRO_API_KEY},
-                    { "exp", ts },
-                    { "jti", tokenId }
-                };
-            }
-
-            var secToken = new JwtSecurityToken(header, payload);
-            var handler = new JwtSecurityTokenHandler();
-
-            // Token to String so you can use it in your client
-            var tokenString = handler.WriteToken(secToken);
-
-            return tokenString;
         }
         public static string GetMD5Hash(String input)
         {
@@ -125,7 +53,6 @@ namespace CobastockPayment.Common
             String md5String = s.ToString();
             return md5String;
         }
-
         public static String GetErrorMessage(string _ErrorCode)
         {
             String _Message = "";
@@ -245,6 +172,111 @@ namespace CobastockPayment.Common
                     break;
             }
             return _Message;
+        }
+        public static String GenerateErrorMsg(List<string> lstMsg)
+        {
+            var message = string.Empty;
+            if (lstMsg.Count > 0)
+            {
+                for (var item = 0; item < lstMsg.Count; item++)
+                {
+                    if (string.IsNullOrEmpty(message))
+                        message = lstMsg[item];
+                    else
+                        message = "<br/>" + lstMsg[item];
+                }
+            }
+            return message;
+
+        }
+        public static String GenerateErrorMsg(string fieldName)
+        {
+            var message = string.Empty;
+            if (!string.IsNullOrEmpty(fieldName))
+            {
+                message = fieldName + " không hợp lệ, vui lòng kiểm tra lại.";
+                return message;
+            }
+            return "Có lỗi xẩy ra vui lòng thử lại.";
+
+        }
+        //automapper
+        //use for simple object
+        public static TDestination Map<TSource, TDestination>(TSource source)
+        {
+            var config = new MapperConfiguration(cfg =>
+            {
+                cfg.CreateMap<TSource, TDestination>();
+            });
+
+            var mapper = config.CreateMapper();
+            return mapper.Map<TDestination>(source);
+        }
+
+        //use for complex object : have child object/List<childObject> inside
+        public static TDestination Map<TSource, TDestination, TProfile>(TSource source) where TProfile : Profile, new()
+        {
+            var config = new MapperConfiguration(cfg =>
+            {
+                cfg.AddProfile<TProfile>();
+            });
+
+            var mapper = config.CreateMapper();
+            return mapper.Map<TSource, TDestination>(source);
+        }
+
+        public static List<TDestination> MapList<TSource, TDestination>(List<TSource> source)
+        {
+            var config = new MapperConfiguration(cfg =>
+            {
+                cfg.CreateMap<TSource, TDestination>();
+            });
+
+            var mapper = config.CreateMapper();
+            return mapper.Map<List<TDestination>>(source);
+        }
+
+        public static T1 Map<T1, T2>(T2 data)
+        {
+            throw new NotImplementedException();
+        }
+
+        public static List<TDestination> MapList<TSource, TDestination, TProfile>(List<TSource> source) where TProfile : Profile, new()
+        {
+            var config = new MapperConfiguration(cfg =>
+            {
+                cfg.AddProfile<TProfile>();
+            });
+
+            var mapper = config.CreateMapper();
+            return mapper.Map<List<TSource>, List<TDestination>>(source);
+        }
+        public static void AddUnique<T>(this IList<T> self, IEnumerable<T> items, string uniqFields)
+        {
+            var fields = uniqFields.Split(';').ToList();
+            foreach (var item in items)
+                if (!self.Any(x => Compare<T>(x, item, fields)))
+                    self.Add(item);
+        }
+        public static bool Compare<T>(T source, T destination, List<string> uniqFields)
+        {
+            foreach (var uniqField in uniqFields)
+            {
+                var sourceProp = source.GetType().GetProperty(uniqField, BindingFlags.Instance | BindingFlags.Public);
+                var sourceResult = string.Empty;
+                if (sourceProp != null)
+                {
+                    sourceResult = Convert.ToString(sourceProp.GetValue(source, null));
+                }
+                var destinationProp = destination.GetType().GetProperty(uniqField, BindingFlags.Instance | BindingFlags.Public);
+                var destinationResult = string.Empty;
+                if (destinationProp != null)
+                {
+                    destinationResult = Convert.ToString(destinationProp.GetValue(destination, null));
+                }
+                if (sourceResult != destinationResult) { return false; }
+            }
+            return true;
         }
     }
 }

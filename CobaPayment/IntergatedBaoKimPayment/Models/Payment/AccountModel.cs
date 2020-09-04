@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace IntergatedBaoKimPayment.Models
+namespace Models.Payment
 {
-    public class AccountModel<T> : ApiResponseBaseModel
+    public class AccountModel<T> : ApiResponseBaseModel<string>
     {
         public List<T> data { get; set; }
     }
