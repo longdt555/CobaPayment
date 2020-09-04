@@ -11,7 +11,7 @@ using Common;
 
 namespace Helpers
 {
-    public static class FunctionHelper
+    public static class FunctionHelpers
     {
         public static string GenerateJwtToken(int expireMinutes = 1)
         {

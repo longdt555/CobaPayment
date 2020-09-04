@@ -472,3 +472,5 @@ D:\CobastockPayment\CobaPayment\IntergatedBaoKimPayment\bin\Newtonsoft.Json.xml
 D:\CobastockPayment\CobaPayment\IntergatedBaoKimPayment\bin\Antlr3.Runtime.pdb
 D:\CobastockPayment\CobaPayment\IntergatedBaoKimPayment\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
 D:\CobastockPayment\CobaPayment\IntergatedBaoKimPayment\obj\Debug\IntergatedBaoKimPayment.csproj.CopyComplete
+D:\Project\CobaP\CobaPayment\CobaPayment\IntergatedBaoKimPayment\bin\AutoMapper.dll
+D:\Project\CobaP\CobaPayment\CobaPayment\IntergatedBaoKimPayment\bin\AutoMapper.xml

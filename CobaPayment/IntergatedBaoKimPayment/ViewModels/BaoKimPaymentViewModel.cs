@@ -1,4 +1,4 @@
-﻿using IntergatedBaoKimPayment.Models;
+﻿using Models.Payment;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,8 +10,10 @@ namespace IntergatedBaoKimPayment.ViewModels
     {
         public BaoKimPaymentViewModel()
         {
-            bankPaymentModel = new BankModel<BankPaymentDetailModel>();
+            bankPaymentModel = new BankModel<BankPaymentDetailModel>(); 
+            orderParamModel = new OrderParamModel();
         }
         public BankModel<BankPaymentDetailModel> bankPaymentModel = new BankModel<BankPaymentDetailModel>();
+        public OrderParamModel orderParamModel { get; set; }
     }
 }
