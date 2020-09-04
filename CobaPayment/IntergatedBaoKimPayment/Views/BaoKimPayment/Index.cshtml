@@ -3,12 +3,9 @@
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
     var bankList = Model.bankPaymentModel.data;
-}
+    var orderParamModel = Model.orderParamModel;}
 <html>
 <head runat="server">
-    <title></title>
-    <link rel="stylesheet" href="../Content/Site.css" type="text/css" />
-
     <style>
         #wrapper {
             width: 715px;
@@ -232,7 +229,7 @@
                     <li class="active">
                         <div class="selected method">
                             <div class="img-icon">
-                                <img src="~/Content/Images/sercurity.png" />
+                                <img src="~/Content/images/sercurity.png" />
                             </div>
                             <div>
                                 <span class="title">Sử dụng ví ngân lượng</span>
@@ -244,7 +241,7 @@
                     <li class="active">
                         <div class="selected method">
                             <div class="img-icon">
-                                <img src="~/Content/Images/sercurity.png" />
+                                <img src="~/Content/images/sercurity.png" />
                             </div>
                             <div>
                                 <span class="title">Sử dụng QR code</span>
@@ -256,7 +253,7 @@
                     <li>
                         <div class="selected method">
                             <div class="img-icon">
-                                <img src="~/Content/Images/atm.png" />
+                                <img src="~/Content/images/atm.png" />
                             </div>
                             <div>
                                 <span class="title">Sử dụng thẻ ATM nội địa</span>
@@ -272,15 +269,15 @@
                             </p>
                             <ul class="cardList clearfix">
                                 @{
-                                        foreach (var item in bankList)
+                                    foreach (var item in bankList)
+                                    {
+                                        var isChecked = string.Empty;
+                                        if (item.type == BankPaymentMethod.ATM)
                                         {
-                                            var isChecked = string.Empty;
-                                            if (item.type == BankPaymentMethod.ATM)
+                                            if (item.id == 15)
                                             {
-                                                if (item.id == 15)
-                                                {
-                                                    isChecked = "checked";
-                                                }
+                                                isChecked = "checked";
+                                            }
                                             <li class="bank-online-methods">
                                                 <label for="vcb_ck_on">
                                                     <img class="img-bank" src="@item.bank_logo" alt="Ngân hàng @item.bank_short_name" width="80" />
@@ -296,7 +293,7 @@
                     </li>
                     <div class="selected method">
                         <div class="img-icon">
-                            <img src="~/Content/Images/atm.png" />
+                            <img src="~/Content/images/atm.png" />
                         </div>
                         <div>
                             <span class="title">Sử dụng thẻ Visa/Master card</span>
@@ -305,7 +302,7 @@
                         <div class="check-box"><input type="checkbox" class="radio r-payment-method" ID="VISA" runat="server" name="paymentMethod" value="4" /></div>
                         <div style="margin-top:15px;clear:both;">
                             <li>
-                                <img style="width:100px; margin-left:70px" src="~/Content/Images/visa.png" />
+                                <img style="width:100px; margin-left:70px" src="~/Content/images/visa.png" />
                             </li>
                         </div>
                     </div>

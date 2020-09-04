@@ -28,7 +28,7 @@ using HttpPostAttribute = System.Web.Mvc.HttpPostAttribute;
 
 namespace IntergatedBaoKimPayment.Controllers
 {
-    public class BaoKimPaymentController : Controller
+    public class BaoKimPaymentController : BaseController
     {
         // GET: Payment
         public ActionResult Index()
@@ -70,7 +70,7 @@ namespace IntergatedBaoKimPayment.Controllers
 
         #endregion
         #region
-        public virtual async Task<OrderModel<OrderModelDetail>> CancelBKOrder(string mrc_order_id)
+        public virtual async Task<OrderModel<OrderModelDetail>> CancelOrder(string mrc_order_id)
         {
             OrderModel<OrderModelDetail> cancelOrderModel = new OrderModel<OrderModelDetail>();
             var orderDetailModel = await GetOrderDetailFromBaoKim(mrc_order_id);
@@ -178,8 +178,8 @@ namespace IntergatedBaoKimPayment.Controllers
                 {
                     return Json(new { Success = true, data = orderDetailModel.data });
                 }
-                await CancelBKOrder(model.mrc_order_id);
-                model.mrc_order_id = baokim_vm.orderParamModel.mrc_order_id;
+                await CancelOrder(model.mrc_order_id);
+                //model.mrc_order_id = baokim_vm.orderParamModel.mrc_order_id;
             }
             if (!isMatch)
             {
@@ -189,7 +189,7 @@ namespace IntergatedBaoKimPayment.Controllers
                     {
                         client.BaseAddress = new Uri(Constant.proHost);
                         client.DefaultRequestHeaders.Add("Accept-Language", "vi");
-                        client.DefaultRequestHeaders.Add("jwt", String.Format(@"Bearer {0}", FunctionHelper.GenerateJwtToken()));
+                        client.DefaultRequestHeaders.Add("jwt", String.Format(@"Bearer {0}", FunctionHelpers.GenerateJwtToken()));
                         HttpResponseMessage response = await client.PostAsJsonAsync(Constant.sendOrderApi, model);
                         if (response.IsSuccessStatusCode)
                         {
@@ -203,25 +203,25 @@ namespace IntergatedBaoKimPayment.Controllers
                                     sendOrderResponseModel = JsonConvert.DeserializeObject<SendOrderResponseModel<SendOrderDataModel>>(responseString);
                                     if (sendOrderResponseModel.message != null) //Lỗi validate dữ liệu/tham số
                                     {
-                                        if (!string.IsNullOrEmpty(FunctionHelper.GenerateErrorMsg(sendOrderResponseModel.message.total_amount)))
+                                        if (!string.IsNullOrEmpty(FunctionHelpers.GenerateErrorMsg(sendOrderResponseModel.message.total_amount)))
                                         {
-                                            message = FunctionHelper.GenerateErrorMsg("Tổng số tiền");
+                                            message = FunctionHelpers.GenerateErrorMsg("Tổng số tiền");
                                         }
-                                        else if (!string.IsNullOrEmpty(FunctionHelper.GenerateErrorMsg(sendOrderResponseModel.message.customer_phone)))
+                                        else if (!string.IsNullOrEmpty(FunctionHelpers.GenerateErrorMsg(sendOrderResponseModel.message.customer_phone)))
                                         {
-                                            message = FunctionHelper.GenerateErrorMsg("Số điện thoại");
+                                            message = FunctionHelpers.GenerateErrorMsg("Số điện thoại");
                                         }
-                                        else if (!string.IsNullOrEmpty(FunctionHelper.GenerateErrorMsg(sendOrderResponseModel.message.customer_email)))
+                                        else if (!string.IsNullOrEmpty(FunctionHelpers.GenerateErrorMsg(sendOrderResponseModel.message.customer_email)))
                                         {
-                                            message = FunctionHelper.GenerateErrorMsg("Email");
+                                            message = FunctionHelpers.GenerateErrorMsg("Email");
                                         }
-                                        else if (!string.IsNullOrEmpty(FunctionHelper.GenerateErrorMsg(sendOrderResponseModel.message.mrc_order_id)))
+                                        else if (!string.IsNullOrEmpty(FunctionHelpers.GenerateErrorMsg(sendOrderResponseModel.message.mrc_order_id)))
                                         {
-                                            message = FunctionHelper.GenerateErrorMsg("Mã đơn hàng");
+                                            message = FunctionHelpers.GenerateErrorMsg("Mã đơn hàng");
                                         }
                                         else
                                         {
-                                            message += FunctionHelper.GenerateErrorMsg("");
+                                            message += FunctionHelpers.GenerateErrorMsg("");
                                         }
                                     }
                                     if (!string.IsNullOrEmpty(message))

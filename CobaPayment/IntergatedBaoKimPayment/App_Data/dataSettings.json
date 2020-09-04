@@ -1,0 +1,15 @@
+﻿//{
+//  "DataConnectionString": "Data Source=YONGPC\\LONGDT;Initial Catalog=Coba_Web;Integrated Security=False;Persist Security Info=False;User ID=sa;Password=2c3a4n56A",
+//  "DataProvider": "sqlserver",
+//  "RawDataSettings": {}
+//}
+{
+  "dataconnectionstring": "data source=desktop-ks7816i\\yong;initial catalog=coba_web;integrated security=false;persist security info=false;user id=sa;password=2c3a4n56A",
+  "dataprovider": "sqlserver",
+  "rawdatasettings": {}
+}
+//{
+//  "DataConnectionString": "Data source=112.78.2.210,1433;initial Catalog=cob51762_nop_gym;Persist Security Info=false;User ID=cob51762_web;Password=0chomayBIK;Max Pool Size=1000;Connect Timeout=3000;Pooling=true;",
+//  "DataProvider": "sqlserver",
+//  "RawDataSettings": {}
+//}

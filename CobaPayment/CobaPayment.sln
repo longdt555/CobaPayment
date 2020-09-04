@@ -5,6 +5,10 @@ VisualStudioVersion = 16.0.30104.148
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IntergatedBaoKimPayment", "IntergatedBaoKimPayment\IntergatedBaoKimPayment.csproj", "{51C90F7D-CED2-4F52-B472-7E3998ACD277}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Libraries", "Libraries", "{B3B50F6B-631F-4E99-A1DC-05A9BCD28BC6}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Presentation", "Presentation", "{95D2ACB1-9DB1-447C-9227-C113D3313542}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -18,6 +22,9 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{51C90F7D-CED2-4F52-B472-7E3998ACD277} = {95D2ACB1-9DB1-447C-9227-C113D3313542}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {564C601C-23B2-49DF-9E96-4576E1ED8752}
