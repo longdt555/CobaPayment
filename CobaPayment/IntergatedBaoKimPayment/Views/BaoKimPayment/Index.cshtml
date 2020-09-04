@@ -1,16 +1,172 @@
 ﻿@model IntergatedBaoKimPayment.ViewModels.BaoKimPaymentViewModel
-@using Common
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
     var bankList = Model.bankPaymentModel.data;
-    var orderParamModel = Model.orderParamModel;}
+    var orderParamModel = Model.orderParamModel;
+}
 <html>
 <head runat="server">
     <style>
-        #wrapper {
-            width: 715px;
-            margin: 0 auto;
-            display: grid;
+        /* Set width on the form input elements since they're 100% wide by default */
+        input,
+        select,
+        textarea {
+            max-width: 380px;
+        }
+
+        #order-form {
+            padding-top: 15px;
+        }
+        /* ----------- iPhone 4 and 4S ----------- */
+        @@media only screen and (min-device-width: 320px) and (max-device-width: 480px) {
+            #wrapper {
+                width: 250px;
+                margin: 0 auto;
+                display: block;
+            }
+
+            .method {
+                padding: 15px 0;
+                display: inline-block;
+                width: 230px;
+                position: relative;
+            }
+
+            .list-content li .boxContent ul {
+                height: 915px;
+            }
+        }
+        /* ----------- iPhone 5 and 5S ----------- */
+        @@media only screen and (min-device-width: 320px) and (max-device-width: 568px) {
+            #wrapper {
+                width: 290px;
+                margin: 0 auto;
+                display: block;
+            }
+
+            .method {
+                padding: 15px 0;
+                border-bottom: 1px #ccc dotted;
+                border-top: 1px #ccc dotted;
+                display: inline-block;
+                width: 270px;
+                position: relative;
+            }
+
+            .list-content li .boxContent ul {
+                height: 915px;
+            }
+        }
+        /* ----------- iPhone 6 ----------- */
+        @@media only screen and (min-device-width: 375px) and (max-device-width: 667px) {
+            #wrapper {
+                width: 340px;
+                margin: 0 auto;
+                display: block;
+            }
+
+            .method {
+                padding: 15px 0;
+                border-bottom: 1px #ccc dotted;
+                border-top: 1px #ccc dotted;
+                display: inline-block;
+                width: 330px;
+                position: relative;
+            }
+
+            .list-content li .boxContent ul {
+                height: 915px;
+            }
+        }
+        /* #### Tablets Portrait or Landscape #### */
+        @@media screen and (min-device-width: 768px) and (max-device-width: 1024px) {
+            #wrapper {
+                width: 400px;
+                margin: 0 auto;
+                display: block;
+            }
+        }
+        /* ----------- iPhone 6+ ----------- */
+        @@media only screen and (min-device-width: 414px) and (max-device-width: 736px) {
+            #wrapper {
+                width: 370px;
+                margin: 0 auto;
+                display: block;
+            }
+
+            .infor-customer {
+                width: 350px;
+                float: left;
+            }
+
+            .list-content li .boxContent ul {
+                height: 915px;
+            }
+
+            .lb-order-form {
+                width: 100%;
+                float: left;
+                display: block;
+                line-height: 20px;
+                text-align: left;
+                padding-right: unset;
+            }
+
+            .field-check.list-box {
+                width: 370px;
+            }
+
+            .method {
+                padding: 15px 0;
+                border-bottom: 1px #ccc dotted;
+                border-top: 1px #ccc dotted;
+                display: inline-block;
+                width: 350px;
+                position: relative;
+            }
+
+            .payment-method-wrapper.active {
+                background-color: unset;
+            }
+        }
+        /* #### Desktops #### */
+        @@media screen and (min-width: 1024px) {
+            .list-content li .boxContent ul {
+                height: 450px;
+            }
+
+            .payment-method-wrapper.active {
+                background-color: #e8f4fb !important;
+            }
+
+            #wrapper {
+                width: 715px;
+                margin: 0 auto;
+                display: grid;
+            }
+
+            .lb-order-form {
+                width: 180px;
+                float: left;
+                display: block;
+                line-height: 60px;
+                text-align: right;
+                padding-right: 15px;
+            }
+
+            .method {
+                padding: 15px 0;
+                border-bottom: 1px #ccc dotted;
+                border-top: 1px #ccc dotted;
+                display: inline-block;
+                width: 715px;
+                position: relative;
+            }
+
+            .infor-customer {
+                width: 715px;
+                float: left;
+            }
         }
 
         .nav_header {
@@ -44,22 +200,18 @@
             font-size: 12px;
         }
 
-        .infor-customer {
-            width: 715px;
-            float: left;
-            border-bottom: 1px #ccc dotted;
+
+
+        .infor-customer dt {
+            font-weight: normal;
+            font-size: 13px;
+            width: 175px;
+            padding-top: 5px;
         }
 
-            .infor-customer dt {
-                font-weight: normal;
-                font-size: 13px;
-                width: 115px;
-                padding-top: 5px;
-            }
-
-            .infor-customer dd {
-                margin-left: 125px;
-            }
+        .infor-customer dd {
+            margin-left: 125px;
+        }
 
         input {
             box-shadow: none;
@@ -93,6 +245,7 @@
                 text-align: right;
                 text-overflow: ellipsis;
                 white-space: nowrap;
+                line-height: 39px;
             }
 
             .dl-horizontal dd {
@@ -125,7 +278,7 @@
         }
 
         .list-box {
-            width: 250px;
+            width: 350px;
             height: 30px;
             margin-left: 7px;
         }
@@ -143,7 +296,7 @@
             width: 100px;
             font-size: 15px;
             text-align: center;
-            background-color: #5bb75b;
+            background-color: #19d7b1;
             border-width: 0px;
             border-radius: 5px;
         }
@@ -159,13 +312,6 @@
             background-color: #fff;
         }
 
-        .method {
-            padding: 15px 0;
-            border-bottom: 1px #ccc dotted;
-            display: inline-block;
-            width: 715px;
-            position: relative;
-        }
 
         .img-icon {
             width: 50px;
@@ -175,20 +321,143 @@
             display: inline-block;
         }
 
-        .check-box {
-            position: absolute;
-            top: 25px;
-            right: 10px;
-            width: 30px;
-        }
-
         .img-bank {
             border: 2px solid white;
             background-color: white;
         }
 
+        .check-box {
+            position: absolute;
+            display: block;
+            top: 25px;
+            right: 10px;
+            cursor: pointer;
+            font-size: 22px;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+
+            .check-box input {
+                position: absolute;
+                opacity: 0;
+                cursor: pointer;
+            }
+
+        .checkmark {
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 23px;
+            width: 23px;
+            background-color: #fff;
+            border-radius: 0px;
+            border: 1px solid #D3D3D3;
+        }
+
+        .check-box:hover input ~ .checkmark {
+            background-color: #ccc;
+        }
+
+        .check-box input:checked ~ .checkmark {
+            background-color: #FFFFFF;
+        }
+
+        .checkmark:after {
+            content: "";
+            position: absolute;
+            display: none;
+        }
+
+        .check-box input:checked ~ .checkmark:after {
+            display: block;
+        }
+
+        .check-box .checkmark:after {
+            top: 2px;
+            left: 2px;
+            width: 19px;
+            height: 19px;
+            background: #19d7b1;
+        }
+        /* check box atm */
+        .check-box-child {
+            position: absolute;
+            display: block;
+            cursor: pointer;
+            font-size: 12px;
+            margin-top: 5px;
+            margin-left: 30px;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+
+            .check-box-child input {
+                position: absolute;
+                opacity: 0;
+                cursor: pointer;
+            }
+
+        .checkmark-child {
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 12px;
+            width: 12px;
+            background-color: #fff;
+            border-radius: 0px;
+            border: 1px solid #D3D3D3;
+        }
+
+        .check-box-child:hover input ~ .checkmark-child {
+            background-color: #ccc;
+        }
+
+        .check-box-child input:checked ~ .checkmark-child {
+            background-color: #FFFFFF;
+        }
+
+        .checkmark-child:after {
+            content: "";
+            position: absolute;
+            display: none;
+        }
+
+        .check-box-child input:checked ~ .checkmark-child:after {
+            display: block;
+        }
+
+        .check-box-child .checkmark-child:after {
+            top: 1px;
+            left: 1px;
+            width: 10px;
+            height: 10px;
+            background: #19d7b1;
+        }
+
         .cardList.clearfix {
             overflow-y: auto;
+        }
+
+        .field-check.list-box {
+            height: 45px;
+            border: none;
+            padding: 0 20px;
+            vertical-align: middle;
+            font-size: 15px;
+            color: #909090;
+            font-family: 'Lato', sans-serif;
+            background: #f0f0f0;
+        }
+
+        input[type=text] {
+            width: 100%;
+            padding: 12px 20px;
+            margin: 8px 0;
+            box-sizing: border-box;
         }
     </style>
 </head>
@@ -196,72 +465,114 @@
 <body>
     <div id="wrapper">
         <div class="nav_header">
-            <div class="nav_title">THANH TOÁN ĐƠN HÀNG QUA BẢO KIM</div>
+            <div class="nav_title">THANH TOÁN ĐƠN HÀNG</div>
         </div>
         <div class="infor-customer">
             <div class="title-info-order">
                 Thông tin đơn hàng
             </div>
             <form id="order-form">
-                mrc_order_id <input type="text" name="model.mrc_order_id" value="1" />
-                total_amount <input type="text" name="model.total_amount" value="15000" />
-                description<input type="text" name="model.description" value="Thịt sạch" />
-                url_success <input type="text" name="model.url_success" value="https://www.facebook.com/" />
-                merchant_id <input type="text" name="model.merchant_id" value="35113" />
-                url_detail  <input type="text" name="model.url_detail" value="https://www.youtube.com/" />
-                lang <input type="text" name="model.lang" value="vi" />
-                bpm_id<input type="text" name="model.bpm_id" value="130" />
-                accept_bank<input type="text" name="model.accept_bank" value="1" />
-                accept_cc<input type="text" name="model.accept_cc" value="0" />
-                accept_qrpay  <input type="text" name="model.accept_qrpay" value="0" />
-                accept_e_wallet <input type="text" name="model.accept_e_wallet" value="0" />
-                webhooks  <input type="text" name="model.webhooks" value="https://viettuts.vn/sql/transaction-trong-sql" />
-                customer_email <input type="text" name="model.customer_email" value="longdt555@gmail.com" />
-                customer_phone  <input type="text" name="model.customer_phone" value="0961647071" />
-                customer_name<input type="text" name="model.customer_name" value="Long" />
-                customer_address<input type="text" name="model.customer_address" value="VN" />
+                <input type="text" class="field-check list-box" id="merchant_id" name="model.merchant_id" value="35168" hidden />
+                @*Url redirect lại sau khi thanh toán thành công*@
+                <input type="text" class="field-check list-box" name="model.url_success" id="url_success" value="https://easygym.vn/Checkout/ConfirmOrderDB_BK" hidden />
+                @*Url chi tiết đơn hàng (redirect lại khi khách hủy đơn)*@
+                <input type="text" class="field-check list-box" id="url_detail" name="model.url_detail" value="https://easygym.vn/cart" hidden />
+                @*ID phương thức thanh toán từ ngân hàng Từ API Bank Payment Method List*@
+                <input type="text" class="field-check list-box" id="bpm_id" name="model.bpm_id" value="0" hidden />
+                @*Chấp nhận thanh toán bằng Ví điện tử ? (Chấp nhận: 1, Không chấp nhận: 0, default: 1)*@
+                <input type="text" class="field-check list-box accept-payment-method" id="accept_e_wallet" name="model.accept_e_wallet" value="1" hidden />
+                @*Chấp nhận thanh toán bằng thẻ Tín dụng ? (Chấp nhận: 1, Không chấp nhận: 0, default: 1)*@
+                <input type="text" class="field-check list-box accept-payment-method" id="accept_cc" name="model.accept_cc" value="0" hidden />
+                @*Chấp nhận thanh toán bằng QR code ? (Chấp nhận: 1, Không chấp nhận: 0, default: 0)*@
+                <input type="text" class="field-check list-box accept-payment-method" id="accept_qrpay" name="model.accept_qrpay" value="0" hidden />
+                @*Chấp nhận thanh toán bằng thẻ ATM ? (Chấp nhận: 1, Không chấp nhận: 0, default: 1)*@
+                <input type="text" class="field-check list-box accept-payment-method" id="accept_bank" name="model.accept_bank" value="0" hidden />
+                @*url dùng để gửi thông báo cho website bán hàng, chat, ... khi đơn hàng thanh toán thành công, cho phép notify đến nhiều url, cách nhau bởi dấu ,*@
+                <input type="text" class="field-check list-box" id="webhooks" name="model.webhooks" value="" hidden />
+                <input type="text" class="field-check list-box" id="customer_address" name="model.customer_address" value="@orderParamModel.customer_address" hidden />
+                <input type="text" class="field-check list-box" id="customer_name" name="model.customer_name" value="@orderParamModel.customer_name" hidden />
+                <input type="text" class="field-check list-box" id="lang" name="model.lang" value="vi" hidden />
+                <div>
+                    <label for="mrc_order_id" class="lb-order-form">
+                        Mã đơn hàng:
+                    </label>
+                    <input type="text" class="field-check list-box" name="model.mrc_order_id" id="mrc_order_id" value="@orderParamModel.mrc_order_id" readonly />
+                </div>
+                <div>
+                    <label for="description" class="lb-order-form">
+                        Mô tả:
+                    </label>
+                    <input type="text" class="field-check list-box" name="model.description" id="description" value="Giao dịch thanh toán đơn hàng" />
+                </div>
+                <div>
+                    <label for="customer_email" class="lb-order-form">
+                        Email khách hàng:
+                    </label>
+                    <input type="text" class="field-check list-box" id="customer_email" name="model.customer_email" value="@orderParamModel.customer_email" />
+                </div>
+                <div>
+                    <label for="customer_phone" class="lb-order-form">
+                        SĐT khách hàng:
+                    </label>
+                    <input type="text" class="field-check list-box" id="customer_phone" name="model.customer_phone" value="@orderParamModel.customer_phone" />
+                </div>
+                <div>
+                    <label for="total_amount" class="lb-order-form">
+                        Số tiền thanh toán:
+                    </label>
+                    <input type="text" class="field-check list-box" id="total_amount" name="model.total_amount" value="@orderParamModel.total_amount.ToString("###,###.###")" readonly />
+                </div>
             </form>
         </div>
         <div style="width:100%;">
             <div ID="txtserverkt" runat="server" name="txtserverkt"> </div>
             <form name="NLpayBank" runat="server">
                 <ul class="list-content">
-                    <li class="active">
+                    <li class="payment-method-wrapper NL active">
                         <div class="selected method">
                             <div class="img-icon">
-                                <img src="~/Content/images/sercurity.png" />
+                                <img alt="Ví Bảo Kim" src="~/Content/images/sercurity.png" />
                             </div>
                             <div>
-                                <span class="title">Sử dụng ví ngân lượng</span>
-                                <span class="dest">thanh toán bằng ví điện tử ngân lượng </span>
+                                <span class="title">Sử dụng ví Bảo Kim</span>
+                                <span class="dest">thanh toán bằng ví điện tử Bảo Kim </span>
                             </div>
-                            <div class="check-box"><input type="checkbox" class="radio r-payment-method" ID="NL" runat="server" name="paymentMethod" value="1" /></div>
+                            <label class="check-box">
+                                <input type="checkbox" class="radio r-payment-method" ID="NL" runat="server" name="paymentMethod" value="1" checked />
+                                <span class="checkmark"></span>
+                            </label>
                         </div>
                     </li>
-                    <li class="active">
+                    <li class="payment-method-wrapper QR">
                         <div class="selected method">
                             <div class="img-icon">
-                                <img src="~/Content/images/sercurity.png" />
+                                <img alt="ATM"  src="~/Content/images/sercurity.png" />
                             </div>
                             <div>
                                 <span class="title">Sử dụng QR code</span>
                                 <span class="dest">thanh toán bằng quẹt mã QR </span>
                             </div>
-                            <div class="check-box"><input type="checkbox" class="radio r-payment-method" ID="NL" runat="server" name="paymentMethod" value="2" /></div>
+                            <label class="check-box">
+                                <input type="checkbox" class="radio r-payment-method" ID="NL" runat="server" name="paymentMethod" value="2" />
+                                <span class="checkmark"></span>
+                            </label>
                         </div>
                     </li>
-                    <li>
+                    <li class="payment-method-wrapper ATM">
                         <div class="selected method">
                             <div class="img-icon">
-                                <img src="~/Content/images/atm.png" />
+                                <img alt="ATM" src="~/Content/images/atm.png" />
                             </div>
                             <div>
                                 <span class="title">Sử dụng thẻ ATM nội địa</span>
                                 <span class="dest">thanh toán online thẻ ngân hàng nội địa </span>
                             </div>
-                            <div class="check-box"><input type="checkbox" class="radio r-payment-method" id="ATM_ONLINE" runat="server" name="paymentMethod" value="3" /></div>
+                            <label class="check-box">
+                                <input type="checkbox" class="radio r-payment-method" id="ATM_ONLINE" runat="server" name="paymentMethod" value="3" />
+                                <span class="checkmark"></span>
+                            </label>
                         </div>
-                        <div class="boxContent hide">
+                        <div class="boxContent">
                             <p>
                                 <i>
                                     <span style="color:#ff5a00;font-weight:bold;">Lưu ý</span>: Bạn cần đăng ký Internet-Banking hoặc dịch vụ thanh toán trực tuyến tại ngân hàng trước khi thực hiện.
@@ -269,98 +580,117 @@
                             </p>
                             <ul class="cardList clearfix">
                                 @{
-                                    foreach (var item in bankList)
+                                    if (bankList != null)
                                     {
-                                        var isChecked = string.Empty;
-                                        if (item.type == BankPaymentMethod.ATM)
+                                        foreach (var item in bankList)
                                         {
-                                            if (item.id == 15)
+                                            var isChecked = string.Empty;
+                                            if (item.type == 1)
                                             {
-                                                isChecked = "checked";
+                                                <li class="bank-online-methods">
+                                                    <label for="vcb_ck_on">
+                                                        <img class="img-bank" src="@item.bank_logo" alt="Ngân hàng @item.bank_short_name" width="80" />
+                                                        <label class="check-box-child">
+                                                            <input type="checkbox" class="radio" id="bank-id-@item.id" runat="server" name="bankcode" value="@item.id" />
+                                                            <span class="checkmark-child"></span>
+                                                        </label>
+                                                    </label>
+                                                </li>
                                             }
-                                            <li class="bank-online-methods">
-                                                <label for="vcb_ck_on">
-                                                    <img class="img-bank" src="@item.bank_logo" alt="Ngân hàng @item.bank_short_name" width="80" />
-                                                    <input type = "checkbox" class="radio" ID="VCB" runat="server" name="bankcode" bank_payment_id="@item.id" />
-                                                </label>
-                                            </li>
-
                                         }
                                     }
                                 }
                             </ul>
                         </div>
                     </li>
-                    <div class="selected method">
+                    <div class="selected method payment-method-wrapper VISA">
                         <div class="img-icon">
-                            <img src="~/Content/images/atm.png" />
+                            <img alt="ATM" src="~/Content/images/atm.png" />
                         </div>
                         <div>
                             <span class="title">Sử dụng thẻ Visa/Master card</span>
                             <span class="dest">chọn thẻ ngân hàng thanh toán </span>
                         </div>
-                        <div class="check-box"><input type="checkbox" class="radio r-payment-method" ID="VISA" runat="server" name="paymentMethod" value="4" /></div>
+                        <label class="check-box">
+                            <input type="checkbox" class="radio r-payment-method" ID="VISA" runat="server" name="paymentMethod" value="4" />
+                            <span class="checkmark"></span>
+                        </label>
                         <div style="margin-top:15px;clear:both;">
                             <li>
-                                <img style="width:100px; margin-left:70px" src="~/Content/images/visa.png" />
+                                <img height="100" alt="VISA" src="~/Content/images/visa.png" />
                             </li>
                         </div>
                     </div>
                 </ul>
                 <div class="submit-pay">
-                    <button ID="nlpayment" runat="server" onclick="" class="pm-submit">Thanh toán</button>
+                    <button id="nlpayment" class="pm-submit">Thanh toán</button>
                 </div>
             </form>
         </div>
     </div>
     <script language="javascript">
-        var bankPaymentMethod = false;
-        $('input[name=""]').bind('click', function () {
-            $('.list-content li').removeClass('active');
-            $(this).parent().parent('li').addClass('active');
-        });
-
+        // changes payment method event
         $('input[type=checkbox][name=paymentMethod]').change(function () {
-            debugger;
             if ($(this).is(":checked")) {
                 if (this.value != '3') {
-                    if (!$(".boxContent").hasClass("hide")) {
-                        $(".boxContent").addClass("hide");
-                    }
-                    bankPaymentMethod = false;
+                    $("#bpm_id").val(0);
+                    $('input[type=checkbox][name=bankcode]').prop("checked", false);
                 }
                 if (this.value == '1') {
+                    $(".accept-payment-method").val(0);
+                    $("#accept_e_wallet").val(1);
                 }
                 else if (this.value == '2') {
+                    $(".accept-payment-method").val(0);
+                    $("#accept_qrpay").val(1);
                 } else if (this.value == '3') {
-                    $(".boxContent").removeClass("hide");
+                    $(".accept-payment-method").val(0);
+                    $("#accept_bank").val(1);
                     if ($('input[type=checkbox][name=bankcode]:checked').length > 0) {
                         var bankCode = $('input[type=checkbox][name=bankcode]:checked')[0].value;
                         $("#bpm_id").val(bankCode);
-                        bankPaymentMethod = true;
+                    } else {
+                        $($('input[type=checkbox][name=bankcode]')[0]).prop("checked", true);
+                        var bankCode = $('input[type=checkbox][name=bankcode]:checked')[0].value;
+                        $("#bpm_id").val(bankCode);
                     }
                 } else if (this.value == '4') {
+                    $(".accept-payment-method").val(0);
+                    $("#accept_cc").val(1);
                 }
             } else {
-                $($('input[type=checkbox][name=paymentMethod]')[0]).prop("checked", true)
+                $($('input[type=checkbox][name=paymentMethod]')[0]).prop("checked", true);
+                $("#bpm_id").val(0);
+                $(".accept-payment-method").val(0);
+                $("#accept_e_wallet").val(1);
             }
         });
-
-        // bank selected
-       
-        $('#nlpayment').click(function (e) {
-            if (bankPaymentMethod) {
-                $('input[type=checkbox][name=bankcode]').change(function () {
-                    var bankCode = $('input[type=checkbox][name=bankcode]:checked')[0].value;
-                    $("#bpm_id").val(bankCode);
-                });
+        $('input[type=checkbox][name=bankcode]').change(function () {
+            $('input[type=checkbox][name=paymentMethod]').prop("checked", false);
+            $($('input[type=checkbox][name=paymentMethod]')[2]).prop("checked", true)
+            $(".accept-payment-method").val(0);
+            $("#accept_bank").val(1);
+            if ($('input[type=checkbox][name=bankcode]:checked').length > 0) {
+                var bankCode = $('input[type=checkbox][name=bankcode]:checked')[0].value;
+                $("#bpm_id").val(bankCode);
             }
+        });
+        // payment button clicked
+        $('#nlpayment').click(function (e) {
+            e.preventDefault();
             $.ajax({
-                url: '/BaoKimPayment/SendOrder',
-                type: 'post',
-                dataType: 'json',
+                url: "@(Url.Action("SendOrder", "Checkout"))",
                 data: $('#order-form').serialize(),
-                success: function (response) { }
+                type: 'POST',
+                success: function (response) {
+                    if (response.Success) {
+                        window.location.href = response.data.payment_url;
+                    } else {
+                        alert(response.Message);
+                    }
+                },
+                error: function (response) {
+                }
             });
         });
 
@@ -379,6 +709,11 @@
             } else {
                 $box.prop("checked", false);
             }
+        });
+
+        $('input[name=""]').bind('click', function () {
+            $('.list-content li').removeClass('active');
+            $(this).parent().parent('li').addClass('active');
         });
     </script>
 </body>

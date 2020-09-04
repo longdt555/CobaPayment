@@ -328,6 +328,7 @@
     <Compile Include="Models\Payment\BaseModel.cs" />
     <Compile Include="Models\Payment\FeeModel.cs" />
     <Compile Include="Models\Payment\OrderModel.cs" />
+    <Compile Include="Models\Payment\ProcessPaymentModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewModels\BaoKimPaymentViewModel.cs" />
   </ItemGroup>

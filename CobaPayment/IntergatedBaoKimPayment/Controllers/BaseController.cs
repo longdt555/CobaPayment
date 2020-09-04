@@ -9,13 +9,13 @@ namespace IntergatedBaoKimPayment.Controllers
 {
     public class BaseController : Controller
     {
-        public virtual void GenerateOrderGuid(OrderParamModel model)
+        public virtual void GenerateOrderGuid(ProcessPaymentModel model)
         {
-            //if (processPaymentRequest.OrderGuid == Guid.Empty)
-            //{
-            //    processPaymentRequest.OrderGuid = Guid.NewGuid();
-            //    processPaymentRequest.OrderGuidGeneratedOnUtc = DateTime.UtcNow;
-            //}
+            if (model.OrderGUID == Guid.Empty)
+            {
+                model.OrderGUID = Guid.NewGuid();
+                model.OrderGuidGeneratedOnUtc = DateTime.UtcNow;
+            }
         }
 
     }

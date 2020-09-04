@@ -33,8 +33,11 @@ namespace IntergatedBaoKimPayment.Controllers
         // GET: Payment
         public ActionResult Index()
         {
+            var processPaymentModel = new ProcessPaymentModel();
+            GenerateOrderGuid(processPaymentModel);
             BaoKimPaymentViewModel baoKimPayment_vm = new BaoKimPaymentViewModel();
             baoKimPayment_vm.bankPaymentModel = GetBankPaymentListData().Result;
+            baoKimPayment_vm.orderParamModel.mrc_order_id = processPaymentModel.OrderGUID.ToString();
             return View(baoKimPayment_vm);
         }
         #region get baokim's order detail by mrc_order_id
